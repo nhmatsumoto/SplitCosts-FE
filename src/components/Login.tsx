@@ -14,7 +14,7 @@ const LoginButton = () => {
     <button
       onClick={handleLogin}
       aria-label="Login"
-      className="flex items-center gap-1 text-sm bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded transition"
+      className="flex items-center gap-1 text-sm bg-blue-100 hover:bg-blue-100 text-white px-3 py-1.5 rounded transition"
     >
       <LogIn size={16} />
       <span>Login</span>
