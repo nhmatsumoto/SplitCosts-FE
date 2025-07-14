@@ -1,10 +1,11 @@
-import Home from '../pages/public/Home';
 import Dashboard from '../pages/private/Dashboard';
 import { MainLayout } from '../components/layout/MainLayout';
 import ProtectedRoute from '../components/ProtectedRoute';
 import type { ReactNode } from 'react';
 import Residence from '../pages/private/Residence';
 import RegisterUser from '../pages/public/RegisterUser';
+import Home from '../pages/public/Home';
+
 
 export interface AppRoute {
   path: string;
@@ -14,46 +15,46 @@ export interface AppRoute {
 }
 
 export const appRoutes: AppRoute[] = [
-  {
-    path: '/',
-    name: 'Home',
-    element: (
-      <MainLayout>
-        <Home />
-      </MainLayout>
-    ),
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    element: (
-      <MainLayout>
-        <RegisterUser />
-      </MainLayout>
-    ),
-  },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    element: (
-      <ProtectedRoute>
+    {
+        path: '/',
+        name: 'Home',
+        element: (
         <MainLayout>
-          <Dashboard />
+            <Home />
         </MainLayout>
-      </ProtectedRoute>
-    ),
-    private: true,
-  },
-  {
-    path: '/residence',
-    name: 'Residence',
-    element: (
-      <ProtectedRoute>
+        ),
+    },
+    {
+        path: '/register',
+        name: 'Register',
+        element: (
         <MainLayout>
-          <Residence />
+            <RegisterUser />
         </MainLayout>
-      </ProtectedRoute>
-    ),
-    private: true,
-  },
+        ),
+    },
+    {
+        path: '/dashboard',
+        name: 'Dashboard',
+        element: (
+        <ProtectedRoute>
+            <MainLayout>
+            <Dashboard />
+            </MainLayout>
+        </ProtectedRoute>
+        ),
+        private: true,
+    },
+    {
+        path: '/residence',
+        name: 'Residence',
+        element: (
+            <ProtectedRoute>
+                <MainLayout>
+                    <Residence />
+                </MainLayout>
+            </ProtectedRoute>
+        ),
+        private: true,
+    },
 ];

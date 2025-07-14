@@ -3,8 +3,6 @@ import MoneyInput from '../MoneyInput';
 
 interface ExpenseFormProps {
   onSubmit: (data: CreateExpenseInput) => void;
-
-  // Dropdowns a serem carregados externamente
   expenseTypes: { value: string; label: string }[];
   categories: { value: string; label: string }[];
   residences: { value: string; label: string }[];

@@ -21,7 +21,7 @@ const ActionCard = ({ title, icon: Icon, color = 'blue', onClick }: ActionCardPr
     <div
       onClick={onClick}
       className={clsx(
-        'cursor-pointer rounded-xl p-6 shadow-sm transition-colors flex flex-col items-center justify-center gap-3 w-48 h-40 border border-gray-200',
+        'cursor-pointer rounded-xl p-6 shadow-sm transition-colors flex flex-col items-center justify-center gap-3 w-38 h-30 border border-gray-200',
         bgColor
       )}
     >
