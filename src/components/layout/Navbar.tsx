@@ -6,36 +6,36 @@ import LoginButton from '../Login';
 import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
-  const auth = useAuth();
-  const [menuOpen, setMenuOpen] = useState(false);
+    const auth = useAuth();
+    const [menuOpen, setMenuOpen] = useState(false);
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-  const closeMenu = () => setMenuOpen(false);
+    const toggleMenu = () => setMenuOpen(!menuOpen);
+    const closeMenu = () => setMenuOpen(false);
 
-  return (
-    <nav className="bg-gray-900 text-white px-6 py-3 shadow-md">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div className="text-xl font-semibold tracking-wide">My Expenses</div>
-            <button
-                className="md:hidden text-white"
-                onClick={toggleMenu}
-                aria-label="Abrir menu"
-                >
-                {menuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
+    return (
+        <nav className="bg-gray-900 text-white px-6 py-3 shadow-md">
+            <div className="max-w-7xl mx-auto flex items-center justify-between">
+                <div className="text-xl font-semibold tracking-wide">My Expenses</div>
+                <button
+                    className="md:hidden text-white"
+                    onClick={toggleMenu}
+                    aria-label="Abrir menu"
+                    >
+                    {menuOpen ? <X size={28} /> : <Menu size={28} />}
+                </button>
 
-            <ul className="hidden md:flex items-center gap-6">
-                <NavLinks auth={auth} />
-            </ul>
-        </div>
+                <ul className="hidden md:flex items-center gap-6">
+                    <NavLinks auth={auth} />
+                </ul>
+            </div>
 
-        {menuOpen && (
-            <ul className="md:hidden mt-4 flex flex-col gap-4 px-4 pb-4 border-t border-gray-700">
-                <NavLinks auth={auth} onClick={closeMenu} />
-            </ul>
-        )}
-    </nav>
-  );
+            {menuOpen && (
+                <ul className="md:hidden mt-4 flex flex-col gap-4 px-4 pb-4 border-t border-gray-700">
+                    <NavLinks auth={auth} onClick={closeMenu} />
+                </ul>
+            )}
+        </nav>
+    );
 };
 
 export default Navbar;

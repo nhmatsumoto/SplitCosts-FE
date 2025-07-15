@@ -4,7 +4,10 @@ import ProtectedRoute from '../components/ProtectedRoute';
 import type { ReactNode } from 'react';
 import Residence from '../pages/private/Residence';
 import RegisterUser from '../pages/public/RegisterUser';
-import Home from '../pages/public/Home';
+import Incomes from '../pages/private/Incomes';
+import Expenses from '../pages/private/Expenses';
+import Members from '../pages/private/Members';
+import Settings from '../pages/private/Settings';
 
 
 export interface AppRoute {
@@ -16,11 +19,32 @@ export interface AppRoute {
 
 export const appRoutes: AppRoute[] = [
     {
-        path: '/',
-        name: 'Home',
+        path: '/dashboard',
+        name: 'Dashboard',
+        element: (
+        <ProtectedRoute>
+            <MainLayout>
+                <Dashboard />
+            </MainLayout>
+        </ProtectedRoute>
+        ),
+        private: true,
+    },
+    {
+        path: '/incomes',
+        name: 'Incomes',
         element: (
         <MainLayout>
-            <Home />
+            <Incomes />
+        </MainLayout>
+        ),
+    },
+    {
+        path: '/expenses',
+        name: 'Expenses',
+        element: (
+        <MainLayout>
+            <Expenses />
         </MainLayout>
         ),
     },
@@ -33,18 +57,7 @@ export const appRoutes: AppRoute[] = [
         </MainLayout>
         ),
     },
-    {
-        path: '/dashboard',
-        name: 'Dashboard',
-        element: (
-        <ProtectedRoute>
-            <MainLayout>
-            <Dashboard />
-            </MainLayout>
-        </ProtectedRoute>
-        ),
-        private: true,
-    },
+  
     {
         path: '/residence',
         name: 'Residence',
@@ -54,6 +67,30 @@ export const appRoutes: AppRoute[] = [
                     <Residence />
                 </MainLayout>
             </ProtectedRoute>
+        ),
+        private: true,
+    },
+    {
+        path: '/members',
+        name: 'Members',
+        element: (
+        <ProtectedRoute>
+            <MainLayout>
+                <Members />
+            </MainLayout>
+        </ProtectedRoute>
+        ),
+        private: true,
+    },
+    {
+        path: '/settings',
+        name: 'Settings',
+        element: (
+        <ProtectedRoute>
+            <MainLayout>
+                <Settings />
+            </MainLayout>
+        </ProtectedRoute>
         ),
         private: true,
     },
