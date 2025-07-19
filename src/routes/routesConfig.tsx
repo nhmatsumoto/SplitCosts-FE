@@ -9,7 +9,6 @@ import Expenses from '../pages/private/Expenses';
 import Members from '../pages/private/Members';
 import Settings from '../pages/private/Settings';
 
-
 export interface AppRoute {
   path: string;
   name: string;
@@ -22,11 +21,11 @@ export const appRoutes: AppRoute[] = [
         path: '/dashboard',
         name: 'Dashboard',
         element: (
-        <ProtectedRoute>
-            <MainLayout>
-                <Dashboard />
-            </MainLayout>
-        </ProtectedRoute>
+            <ProtectedRoute>
+                <MainLayout>
+                    <Dashboard />
+                </MainLayout>
+            </ProtectedRoute>
         ),
         private: true,
     },
@@ -34,27 +33,33 @@ export const appRoutes: AppRoute[] = [
         path: '/incomes',
         name: 'Incomes',
         element: (
-        <MainLayout>
-            <Incomes />
-        </MainLayout>
+            <ProtectedRoute>
+                <MainLayout>
+                    <Incomes />
+                </MainLayout>
+            </ProtectedRoute>
         ),
+        private: true,
     },
     {
         path: '/expenses',
         name: 'Expenses',
         element: (
-        <MainLayout>
-            <Expenses />
-        </MainLayout>
+            <ProtectedRoute>
+                <MainLayout>
+                    <Expenses />
+                </MainLayout>
+            </ProtectedRoute>
         ),
+        private: false,
     },
     {
         path: '/register',
         name: 'Register',
         element: (
-        <MainLayout>
-            <RegisterUser />
-        </MainLayout>
+            <MainLayout>
+                <RegisterUser />
+            </MainLayout>
         ),
     },
   
@@ -74,11 +79,11 @@ export const appRoutes: AppRoute[] = [
         path: '/members',
         name: 'Members',
         element: (
-        <ProtectedRoute>
-            <MainLayout>
-                <Members />
-            </MainLayout>
-        </ProtectedRoute>
+            <ProtectedRoute>
+                <MainLayout>
+                    <Members />
+                </MainLayout>
+            </ProtectedRoute>
         ),
         private: true,
     },
@@ -86,11 +91,23 @@ export const appRoutes: AppRoute[] = [
         path: '/settings',
         name: 'Settings',
         element: (
-        <ProtectedRoute>
-            <MainLayout>
-                <Settings />
-            </MainLayout>
-        </ProtectedRoute>
+            <ProtectedRoute>
+                <MainLayout>
+                    <Settings />
+                </MainLayout>
+            </ProtectedRoute>
+        ),
+        private: true,
+    },
+    {
+        path: '/',
+        name: 'Settings',
+        element: (
+            <ProtectedRoute>
+                <MainLayout>
+                    <Settings />
+                </MainLayout>
+            </ProtectedRoute>
         ),
         private: true,
     },
