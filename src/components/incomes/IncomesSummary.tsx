@@ -1,37 +1,62 @@
+// IncomesSummary.tsx
+import type { LucideIcon } from "lucide-react";
+import { formatCurrency } from "../../hooks/useCurrencyFormatter";
+import MetricCard from "../MetricCard";
+
 type IncomeStat = {
-    label: string;
-    value: number;
+  label: string;
+  value: number;
+  icon?: LucideIcon;
+  color?: string;
+  description?: string;
 };
 
 type IncomeStatsProps = {
-    total: number;
-    recurring: number;
-    unique: number;
+  total: number;
+  recurring: number;
+  unique: number;
 };
 
-const formatCurrency = (value: number) =>
-    value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
 const IncomesSummary = ({ total, recurring, unique }: IncomeStatsProps) => {
-    const stats: IncomeStat[] = [
-        { label: 'Total Recebido', value: total },
-        { label: 'Rendimentos Recorrentes', value: recurring },
-        { label: 'Rendimentos Únicos', value: unique },
-    ];
+  const stats: IncomeStat[] = [
+    {
+      label: "Total Recebido",
+      value: total,
+      color: "text-green-600",
+      description: "+12% em relação ao mês anterior",
+    },
+    {
+      label: "Recorrentes",
+      value: recurring,
+      color: "text-blue-600",
+      description: "Estável este mês",
+    },
+    {
+      label: "Únicos",
+      value: unique,
+      color: "text-yellow-600",
+      description: "Crescimento de 5%",
+    },
+  ];
 
-    return (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {stats.map((item, idx) => (
-                <div
-                    key={idx}
-                    className="rounded-lg border bg-card text-card-foreground shadow-sm p-4"
-                >
-                    <div className="text-sm text-muted-foreground">{item.label}</div>
-                    <div className="text-lg font-semibold">{formatCurrency(item.value)}</div>
-                </div>
-            ))}
-        </div>
-    );
+  return (
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      {stats.map((item, idx) => (
+        <MetricCard
+          key={idx}
+          title={item.label}
+          value={formatCurrency(item.value)}
+          valueColor={item.color}
+          description={item.description}
+          icon={
+            item.icon ? (
+              <item.icon className={`h-6 w-6 ${item.color}`} />
+            ) : undefined
+          }
+        />
+      ))}
+    </div>
+  );
 };
 
 export default IncomesSummary;
