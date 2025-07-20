@@ -6,27 +6,27 @@ import {
 } from '@tanstack/react-table';
 import { useState } from 'react';
 
-type Member = {
-  name: string;
-  role: string;
-  status: 'Ativo' | 'Inativo' | 'Pendente';
+type Invitation = {
+  email: string;
+  date: string;
+  status: 'Pendente' | 'Aceito' | 'Expirado';
 };
 
-const defaultData: Member[] = [
-  { name: 'João Silva', role: 'Administrador', status: 'Ativo' },
-  { name: 'Maria Souza', role: 'Editor', status: 'Inativo' },
-  { name: 'Carlos Lima', role: 'Visualizador', status: 'Pendente' },
+const defaultData: Invitation[] = [
+  { email: 'maria@example.com', date: '19/07/2025', status: 'Pendente' },
+  { email: 'joao@example.com', date: '18/07/2025', status: 'Aceito' },
+  { email: 'ana@example.com', date: '17/07/2025', status: 'Expirado' },
 ];
 
-const columnHelper = createColumnHelper<Member>();
+const columnHelper = createColumnHelper<Invitation>();
 
 const columns = [
-  columnHelper.accessor('name', {
-    header: () => 'Nome',
+  columnHelper.accessor('email', {
+    header: () => 'Email',
     cell: (info) => <span className="text-gray-900">{info.getValue()}</span>,
   }),
-  columnHelper.accessor('role', {
-    header: () => 'Função',
+  columnHelper.accessor('date', {
+    header: () => 'Data',
     cell: (info) => <span className="text-gray-600">{info.getValue()}</span>,
   }),
   columnHelper.accessor('status', {
@@ -34,10 +34,10 @@ const columns = [
     cell: (info) => {
       const value = info.getValue();
       const color =
-        value === 'Ativo'
-          ? 'bg-green-100 text-green-800'
-          : value === 'Pendente'
+        value === 'Pendente'
           ? 'bg-yellow-100 text-yellow-800'
+          : value === 'Aceito'
+          ? 'bg-green-100 text-green-800'
           : 'bg-gray-100 text-gray-600';
       return (
         <span className={`px-2 py-1 rounded-full text-xs font-medium ${color}`}>
@@ -48,7 +48,7 @@ const columns = [
   }),
 ];
 
-const MembersTable = () => {
+const MembersInvitationsTable = () => {
   const [data] = useState(() => [...defaultData]);
 
   const table = useReactTable({
@@ -59,7 +59,7 @@ const MembersTable = () => {
 
   return (
     <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-xl font-semibold text-gray-800">Membros</h2>
+      <h2 className="mb-4 text-xl font-semibold text-gray-800">Convites</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200 text-sm">
           <thead className="bg-gray-50">
@@ -93,4 +93,4 @@ const MembersTable = () => {
   );
 };
 
-export default MembersTable;
+export default MembersInvitationsTable;

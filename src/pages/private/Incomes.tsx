@@ -1,7 +1,7 @@
 import { useState } from "react";
-import IncomeHeader from "../../components/incomes/IncomeHeader";
 import IncomesSummary from "../../components/incomes/IncomesSummary";
 import IncomeTable from "../../components/incomes/IncomeTable";
+import Header from "../../components/Header";
 
 type IncomeItem = {
     id: number;
@@ -75,9 +75,19 @@ const Incomes = () => {
         }
     };
 
+    function handleButtonClick(): void {
+        throw new Error("Function not implemented.");
+    }
+
     return (
         <div className="space-y-6">
-            <IncomeHeader />
+            <Header
+                title="Incomes"
+                description="Registre e gerencie suas receitas"
+                buttonLabel="Add Income"
+                onButtonClick={() => handleButtonClick()}
+                buttonClassName="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700"
+            />
             <IncomesSummary
                 total={totalMonthly}
                 recurring={recurringCount}

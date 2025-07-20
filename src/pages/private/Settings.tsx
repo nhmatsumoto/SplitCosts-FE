@@ -4,7 +4,7 @@ import ResidenceSettings from '../../components/settings/SettingsResidence';
 import NotificationSettings from '../../components/settings/SettingsNotification';
 import SecuritySettings from '../../components/settings/SettingsSecurity';
 import DangerZone from '../../components/DangerZone';
-import Header from '../../components/members/Header';
+import Header from '../../components/Header';
 
 const Settings = () => {
     const [emailNotifications, setEmailNotifications] = useState(true);
@@ -18,9 +18,18 @@ const Settings = () => {
     const [residenceName, setResidenceName] = useState<string>('Casa Principal');
     const [address, setAddress] = useState<string>('Rua das Flores, 123 - Centro - São Paulo, SP');
 
+    function handleButtonClick(): void {
+        throw new Error('Function not implemented.');
+    }
+
     return (
         <main className="space-y-6">
-            <Header title="Settings" />
+            <Header
+                title="Settings"
+                description="Gerencie suas configurações pessoais e da residência"
+                onButtonClick={() => handleButtonClick()}
+                buttonClassName="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700"
+            />
 
             <div className="grid gap-6">
                 <UserProfile
