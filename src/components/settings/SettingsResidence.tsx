@@ -7,7 +7,7 @@ interface Props {
   setAddress: (value: string) => void;
 }
 
-const ResidenceSettings = ({ residenceName, setResidenceName, address, setAddress }: Props) => (
+const SettingsResidence = ({ residenceName, setResidenceName, address, setAddress }: Props) => (
   <div className="rounded-lg border bg-card text-card-foreground shadow-2xs">
     <div className="flex flex-col space-y-1.5 p-6">
       <div className="flex items-center space-x-2">
@@ -54,4 +54,4 @@ const Input = ({ label, id, value, onChange }: any) => (
   </div>
 );
 
-export default ResidenceSettings;
+export default SettingsResidence;
