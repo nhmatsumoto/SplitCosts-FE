@@ -1,15 +1,28 @@
 import { useState } from 'react';
 import { useAuth } from 'react-oidc-context';
-import { Link } from 'react-router-dom';
-import { Menu, X, TrendingUp, TrendingDown, ChartColumn, Users, Settings, House, ChevronDown } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import {
+    Menu,
+    X,
+    TrendingUp,
+    TrendingDown,
+    ChartColumn,
+    Users,
+    Settings,
+    House,
+    ChevronDown,
+    ChevronRight,
+    ArrowLeftRight,
+} from 'lucide-react';
 import Footer from './Footer';
+import { useTranslation } from 'react-i18next';
 
 const Sidebar = () => {
     const auth = useAuth();
     const [open, setOpen] = useState(false);
-
     const toggleSidebar = () => setOpen(!open);
     const closeSidebar = () => setOpen(false);
+    const { t } = useTranslation();
 
     return (
         <>
@@ -22,22 +35,18 @@ const Sidebar = () => {
             </button>
 
             <aside
-                className={`fixed top-0 left-0 h-full w-64 bg-gray-900 text-white transform transition-transform duration-300 z-40 flex flex-col ${
-                    open ? 'translate-x-0' : '-translate-x-full'
-                } md:translate-x-0 md:relative md:w-64`}
-                >
-               
+                className={`fixed top-0 left-0 h-full w-64 bg-gray-900 text-white transform transition-transform duration-300 z-40 flex flex-col ${open ? 'translate-x-0' : '-translate-x-full'
+                    } md:translate-x-0 md:relative md:w-64`}
+            >
                 <div className="flex items-center gap-3 p-6 text-xl font-semibold border-b border-gray-700">
                     <House size={28} />
-                    <span>My Expenses</span>
+                    <span>{t('title')}</span>
                 </div>
 
                 <div className="p-4 border-b border-gray-700">
                     <label className="block mb-1 text-sm text-gray-400">Selecionar residência</label>
                     <div className="relative">
-                        <select
-                            className="w-full bg-gray-800 text-white border border-gray-600 rounded px-3 py-2 pr-8 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
+                        <select className="w-full bg-gray-800 text-white border border-gray-600 rounded px-3 py-2 pr-8 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option>Residência A</option>
                             <option>Residência B</option>
                             <option>Residência C</option>
@@ -47,8 +56,8 @@ const Sidebar = () => {
                 </div>
 
                 <nav className="p-4 flex-1">
-                    <ul className="flex flex-col gap-4">
-                    <NavLinks auth={auth} onClick={closeSidebar} />
+                    <ul className="flex flex-col gap-2">
+                        <NavLinks auth={auth} onClick={closeSidebar} />
                     </ul>
                 </nav>
 
@@ -58,10 +67,7 @@ const Sidebar = () => {
             </aside>
 
             {open && (
-                <div
-                className="fixed inset-0 bg-black opacity-50 z-30 md:hidden"
-                onClick={closeSidebar}
-                />
+                <div className="fixed inset-0 bg-black opacity-50 z-30 md:hidden" onClick={closeSidebar} />
             )}
         </>
     );
@@ -70,74 +76,133 @@ const Sidebar = () => {
 export default Sidebar;
 
 const NavLinks = ({
-  auth,
-  onClick,
+    auth,
+    onClick,
 }: {
-  auth: ReturnType<typeof useAuth>;
-  onClick?: () => void;
-}) => (
-  <>
-    <li>
-      <Link
-        to="/dashboard"
-        onClick={onClick}
-        className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200"
-      >
-        <ChartColumn size={18} /> Dashboard
-      </Link>
-    </li>
-    <li>
-      <Link
-        to="/incomes"
-        onClick={onClick}
-        className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200"
-      >
-        <TrendingUp size={18} /> Incomes
-      </Link>
-    </li>
+    auth: ReturnType<typeof useAuth>;
+    onClick?: () => void;
+}) => {
+    const location = useLocation();
+    const [submenuGestaoOpen, setSubmenuGestaoOpen] = useState(() =>
+        ['/members', '/settings'].includes(location.pathname)
+    );
+    const [submenuTransacoesOpen, setSubmenuTransacoesOpen] = useState(() =>
+        ['/incomes', '/expenses'].includes(location.pathname)
+    );
 
-    <li>
-      <Link
-        to="/expenses"
-        onClick={onClick}
-        className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200"
-      >
-        <TrendingDown size={18} /> Expenses
-      </Link>
-    </li>
+    const isActive = (path: string) => location.pathname === path;
 
-    <li>
-      <Link
-        to="/members"
-        onClick={onClick}
-        className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200"
-      >
-        <Users size={18} /> Members
-      </Link>
-    </li>
+    return (
+        <>
+            <li>
+                <Link
+                    to="/dashboard"
+                    onClick={onClick}
+                    className={`flex items-center gap-2 transition-colors duration-200 ${
+                        isActive('/dashboard') ? 'text-blue-400' : 'hover:text-blue-400'
+                    }`}
+                >
+                    <ChartColumn size={18} /> Dashboard
+                </Link>
+            </li>
 
-    <li>
-      <Link
-        to="/settings"
-        onClick={onClick}
-        className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200"
-      >
-        <Settings size={18} /> Settings
-      </Link>
-    </li>
+            <li>
+                <button
+                    onClick={() => setSubmenuTransacoesOpen(!submenuTransacoesOpen)}
+                    className="flex items-center justify-between w-full hover:text-blue-400 transition-colors duration-200"
+                >
+                    <span className="flex items-center gap-2">
+                        <ArrowLeftRight size={18} /> Transações
+                    </span>
+                    {submenuTransacoesOpen ? (
+                        <ChevronDown size={16} />
+                    ) : (
+                        <ChevronRight size={16} />
+                    )}
+                </button>
+                {submenuTransacoesOpen && (
+                    <ul className="ml-6 mt-2 flex flex-col gap-2 text-sm text-gray-300">
+                        <li>
+                            <Link
+                                to="/incomes"
+                                onClick={onClick}
+                                className={`flex items-center gap-2 transition-colors duration-200 ${
+                                    isActive('/incomes') ? 'text-blue-400' : 'hover:text-blue-400'
+                                }`}
+                            >
+                                <TrendingUp size={16} /> Incomes
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/expenses"
+                                onClick={onClick}
+                                className={`flex items-center gap-2 transition-colors duration-200 ${
+                                    isActive('/expenses') ? 'text-blue-400' : 'hover:text-blue-400'
+                                }`}
+                            >
+                                <TrendingDown size={16} /> Expenses
+                            </Link>
+                        </li>
+                    </ul>
+                )}
+            </li>
 
-    {!auth.isAuthenticated && (
-      <li>
-        <Link
-          to="/register"
-          onClick={onClick}
-          className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200"
-        >
-          Register
-        </Link>
-      </li>
-    )}
+            <li>
+                <button
+                    onClick={() => setSubmenuGestaoOpen(!submenuGestaoOpen)}
+                    className="flex items-center justify-between w-full hover:text-blue-400 transition-colors duration-200"
+                >
+                    <span className="flex items-center gap-2">
+                        <Users size={18} /> Gestão
+                    </span>
+                    {submenuGestaoOpen ? (
+                        <ChevronDown size={16} />
+                    ) : (
+                        <ChevronRight size={16} />
+                    )}
+                </button>
+                {submenuGestaoOpen && (
+                    <ul className="ml-6 mt-2 flex flex-col gap-2 text-sm text-gray-300">
+                        <li>
+                            <Link
+                                to="/members"
+                                onClick={onClick}
+                                className={`flex items-center gap-2 transition-colors duration-200 ${
+                                    isActive('/members') ? 'text-blue-400' : 'hover:text-blue-400'
+                                }`}
+                            >
+                                <Users size={16} /> Membros
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/settings"
+                                onClick={onClick}
+                                className={`flex items-center gap-2 transition-colors duration-200 ${
+                                    isActive('/settings') ? 'text-blue-400' : 'hover:text-blue-400'
+                                }`}
+                            >
+                                <Settings size={16} /> Configurações
+                            </Link>
+                        </li>
+                    </ul>
+                )}
+            </li>
 
-   
-  </>
-);
+            {!auth.isAuthenticated && (
+                <li>
+                    <Link
+                        to="/register"
+                        onClick={onClick}
+                        className={`flex items-center gap-2 transition-colors duration-200 ${
+                            isActive('/register') ? 'text-blue-400' : 'hover:text-blue-400'
+                        }`}
+                    >
+                        Register
+                    </Link>
+                </li>
+            )}
+        </>
+    );
+};

@@ -1,0 +1,6 @@
+{
+    "title": "私の費用",
+    "select_language": "言語を選択",
+    "welcome": "アプリへようこそ",
+    "description": "これは、Reactとi18nを使用した国際化を示すシンプルなアプリです。"
+}

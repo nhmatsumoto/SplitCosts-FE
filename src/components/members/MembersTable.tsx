@@ -58,9 +58,9 @@ const MembersTable = () => {
   });
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-xl font-semibold text-gray-800">Membros</h2>
-      <div className="overflow-x-auto">
+    <div className="rounded-2xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm w-full">
+      <h2 className="mb-4 text-lg md:text-xl font-semibold text-gray-800">Membros</h2>
+      <div className="w-full overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200 text-sm">
           <thead className="bg-gray-50">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -68,7 +68,7 @@ const MembersTable = () => {
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide"
+                    className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase whitespace-nowrap"
                   >
                     {flexRender(header.column.columnDef.header, header.getContext())}
                   </th>

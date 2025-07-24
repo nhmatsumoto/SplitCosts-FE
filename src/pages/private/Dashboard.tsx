@@ -3,12 +3,16 @@ import DashboardModals from "../../components/dashboard/DashboardModals";
 import DashboardCharts from "../../components/dashboard/DashboardCharts";
 import RecentTransactions from "../../components/dashboard/RecentTransactions";
 import ExpensesByCategory from "../../components/dashboard/ExpensesByCategory";
-import Header from "../../components/Header";
+import Header from "../../components/layout/Header";
 import MetricCard from "../../components/MetricCard";
 import { DollarSign, TrendingDown, TrendingUp, Users } from "lucide-react";
-import { formatCurrency } from "../../hooks/useCurrencyFormatter";
+import { useCurrencyFormatter } from "../../hooks/useCurrencyFormatter";
+
 
 const Dashboard = () => {
+
+    const { formatCurrency } = useCurrencyFormatter();
+
     const [modalType, setModalType] = useState<"income" | "expense" | "inviteUser" | "residence" | "investment" | null>(null);
     const closeModal = () => setModalType(null);
 

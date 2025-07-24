@@ -1,7 +1,7 @@
 import MembersTable from "../../components/members/MembersTable";
 import Metrics from "../../components/members/MembersMetrics";
 import MembersInvitationsTable from "../../components/members/MembersInvitationsTable";
-import Header from "../../components/Header";
+import Header from "../../components/layout/Header";
 
 
 const Members = () => {

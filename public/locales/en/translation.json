@@ -1,0 +1,6 @@
+{
+    "title": "My Expenses",
+    "select_language": "Select Language",
+    "welcome": "Welcome to the App",
+    "description": "This is a simple app demonstrating internationalization with React and i18n."
+}

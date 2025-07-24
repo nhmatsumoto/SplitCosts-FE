@@ -1,0 +1,6 @@
+{
+    "title": "Meus Gastos",
+    "select_language": "Selecionar Idioma",
+    "welcome": "Bem-vindo ao Aplicativo",
+    "description": "Este é um aplicativo simples demonstrando internacionalização com React e i18n."
+}

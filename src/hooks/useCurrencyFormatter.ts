@@ -1,10 +1,14 @@
-export const formatCurrency = (
-  value: number,
-  options: { locale?: string; currency?: string } = {}
-): string => {
-  const { locale = "ja-JP", currency = "JPY" } = options;
-  return value.toLocaleString(locale, {
-    style: "currency",
-    currency,
-  });
+import { useCurrencyStore } from "../store/currencyStore";
+
+export const useCurrencyFormatter = () => {
+  const { locale, currency } = useCurrencyStore();
+
+  const formatCurrency = (value: number): string => {
+    return value.toLocaleString(locale, {
+      style: "currency",
+      currency,
+    });
+  };
+
+  return { formatCurrency };
 };

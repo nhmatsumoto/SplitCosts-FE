@@ -1,66 +1,62 @@
 import {
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    ResponsiveContainer,
+    AreaChart,
+    Area,
     BarChart,
     Bar,
-    Legend,
-} from 'recharts';
+    XAxis,
+    YAxis,
+    Tooltip,
+    ResponsiveContainer,
+    CartesianGrid,
+} from "recharts";
 
-const sampleData = [
-    { month: 'Jan', income: 5000, expense: 3200 },
-    { month: 'Feb', income: 4800, expense: 3000 },
-    { month: 'Mar', income: 5100, expense: 3400 },
-    { month: 'Apr', income: 5300, expense: 3700 },
-    { month: 'May', income: 4900, expense: 3100 },
-    { month: 'Jun', income: 5500, expense: 3900 },
+const data = [
+    { name: "Jan", entradas: 2400, saidas: 4000 },
+    { name: "Feb", entradas: 1398, saidas: 3000 },
+    { name: "Mar", entradas: 9800, saidas: 2000 },
+    { name: "Apr", entradas: 3908, saidas: 2780 },
+    { name: "May", entradas: 4800, saidas: 1890 },
+    { name: "Jun", entradas: 3800, saidas: 2390 },
+    { name: "Jul", entradas: 4300, saidas: 3490 },
 ];
 
-const DashboardCharts = () => {
+export default function DashboardCharts() {
     return (
+        <div className="m-6">
+            <h2 className="text-2xl font-bold mb-2">Visão Geral</h2>
+            <p className="text-sm text-muted-foreground mb-6">
+                Crescimento mensal em entradas e saídas
+            </p>
 
-        <div className="mt-10 w-full px-4">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Visão Mensal</h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
-                    <h4 className="text-gray-700 mb-2 font-medium">Entradas x Saídas</h4>
-                    <ResponsiveContainer width="100%" height={250}>
-                        <LineChart data={sampleData}>
+            <div className="flex flex-col lg:flex-row gap-6">
+                <div className="bg-white rounded-xl border border-gray-200 shadow-md p-4 flex-1">
+                    <h3 className="text-lg font-semibold mb-2">Entradas vs Saídas</h3>
+                    <ResponsiveContainer width="100%" height={300}>
+                        <BarChart data={data}>
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="month" />
+                            <XAxis dataKey="name" />
                             <YAxis />
                             <Tooltip />
-                            <Legend />
-                            <Line type="monotone" dataKey="income" stroke="#22c55e" name="Entradas" />
-                            <Line type="monotone" dataKey="expense" stroke="#ef4444" name="Saídas" />
-                        </LineChart>
+                            <Bar dataKey="entradas" stackId="a" fill="#6366f1" />
+                            <Bar dataKey="saidas" stackId="a" fill="#ec4899" />
+                        </BarChart>
                     </ResponsiveContainer>
                 </div>
-
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
-                    <h4 className="text-gray-700 mb-2 font-medium">Comparativo Mensal</h4>
-                    <ResponsiveContainer width="100%" height={250}>
-                        <BarChart data={sampleData}>
+                
+                <div className="bg-white rounded-xl border border-gray-200 shadow-md p-4 flex-1">
+                    <h3 className="text-lg font-semibold mb-2">Distribuição</h3>
+                    <ResponsiveContainer width="100%" height={300}>
+                        <AreaChart data={data} stackOffset="expand">
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="month" />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            <Bar dataKey="income" fill="#86efac" name="Entradas" />
-                            <Bar dataKey="expense" fill="#fca5a5" name="Saídas" />
-                        </BarChart>
+                            <XAxis dataKey="name" />
+                            <YAxis tickFormatter={(val) => `${(val * 100).toFixed(0)}%`} />
+                            <Tooltip formatter={(val: number | string) => `${(Number(val) * 100).toFixed(0)}%`} />
+                            <Area type="monotone" dataKey="entradas" stackId="1" stroke="#6366f1" fill="#6366f1" />
+                            <Area type="monotone" dataKey="saidas" stackId="1" stroke="#ec4899" fill="#ec4899" />
+                        </AreaChart>
                     </ResponsiveContainer>
                 </div>
             </div>
         </div>
-
-
     );
-};
-
-export default DashboardCharts;
+}

@@ -1,6 +1,6 @@
 import ExpensesSummary from "../../components/expenses/ExpensesSummary";
 import ExpensesTable from "../../components/expenses/ExpensesTable";
-import Header from "../../components/Header";
+import Header from "../../components/layout/Header";
 
 const Expenses = () => {
     function handleButtonClick(): void {

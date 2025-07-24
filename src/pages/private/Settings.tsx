@@ -4,7 +4,9 @@ import ResidenceSettings from '../../components/settings/SettingsResidence';
 import NotificationSettings from '../../components/settings/SettingsNotification';
 import SecuritySettings from '../../components/settings/SettingsSecurity';
 import DangerZone from '../../components/DangerZone';
-import Header from '../../components/Header';
+import Header from '../../components/layout/Header';
+import CurrencySettings from '../../components/settings/CurrencySettings';
+import LanguageSelector from '../../components/LanguageSelector';
 
 const Settings = () => {
     const [emailNotifications, setEmailNotifications] = useState(true);
@@ -30,7 +32,8 @@ const Settings = () => {
                 onButtonClick={() => handleButtonClick()}
                 buttonClassName="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700"
             />
-
+            <CurrencySettings />
+            <LanguageSelector />
             <div className="grid gap-6">
                 <UserProfile
                     userName={userName}
@@ -57,6 +60,7 @@ const Settings = () => {
                     setWeeklyReports={setWeeklyReports}
                 />
                 <SecuritySettings />
+                
                 <DangerZone />
             </div>
         </main>
