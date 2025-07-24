@@ -2,7 +2,6 @@ import Dashboard from '../pages/private/Dashboard';
 import { MainLayout } from '../components/layout/MainLayout';
 import ProtectedRoute from '../components/ProtectedRoute';
 import type { ReactNode } from 'react';
-import Residence from '../pages/private/Residence';
 import RegisterUser from '../pages/public/RegisterUser';
 import Incomes from '../pages/private/Incomes';
 import Expenses from '../pages/private/Expenses';
@@ -61,19 +60,6 @@ export const appRoutes: AppRoute[] = [
                 <RegisterUser />
             </MainLayout>
         ),
-    },
-  
-    {
-        path: '/residence',
-        name: 'Residence',
-        element: (
-            <ProtectedRoute>
-                <MainLayout>
-                    <Residence />
-                </MainLayout>
-            </ProtectedRoute>
-        ),
-        private: true,
     },
     {
         path: '/members',

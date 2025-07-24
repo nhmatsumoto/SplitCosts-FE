@@ -60,7 +60,7 @@ const Settings = () => {
                     setWeeklyReports={setWeeklyReports}
                 />
                 <SecuritySettings />
-                
+
                 <DangerZone />
             </div>
         </main>
