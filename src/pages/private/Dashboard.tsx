@@ -7,11 +7,13 @@ import Header from "../../components/layout/Header";
 import MetricCard from "../../components/MetricCard";
 import { DollarSign, TrendingDown, TrendingUp, Users } from "lucide-react";
 import { useCurrencyFormatter } from "../../hooks/useCurrencyFormatter";
+import { useTranslation } from "react-i18next";
 
 
 const Dashboard = () => {
 
     const { formatCurrency } = useCurrencyFormatter();
+    const { t } = useTranslation();
 
     const [modalType, setModalType] = useState<"income" | "expense" | "inviteUser" | "residence" | "investment" | null>(null);
     const closeModal = () => setModalType(null);
@@ -23,7 +25,7 @@ const Dashboard = () => {
     return (
         <>
             <Header
-                title="Dashboard"
+                title={t('dashboard_title')}
                 description="Gerencie suas finanças de forma eficiente"
                 onButtonClick={() => handleButtonClick()}
                 buttonClassName="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700"

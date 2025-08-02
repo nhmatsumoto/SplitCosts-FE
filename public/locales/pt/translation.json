@@ -1,6 +1,11 @@
 {
     "title": "Meus Gastos",
-    "select_language": "Selecionar Idioma",
-    "welcome": "Bem-vindo ao Aplicativo",
-    "description": "Este é um aplicativo simples demonstrando internacionalização com React e i18n."
+    "dashboard_title": "Painel de Controle",
+    "dashboard_description": "Visualize e gerencie seus gastos de forma eficiente.",
+    "expenses": "Gastos",
+    "income": "Renda",
+    "savings": "Poupanças",
+    "budget": "Orçamento",
+    "reports": "Relatórios",
+    "settings": "Configurações"
 }

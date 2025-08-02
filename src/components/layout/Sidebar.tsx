@@ -98,9 +98,8 @@ const NavLinks = ({
                 <Link
                     to="/dashboard"
                     onClick={onClick}
-                    className={`flex items-center gap-2 transition-colors duration-200 ${
-                        isActive('/dashboard') ? 'text-blue-400' : 'hover:text-blue-400'
-                    }`}
+                    className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/dashboard') ? 'text-blue-400' : 'hover:text-blue-400'
+                        }`}
                 >
                     <ChartColumn size={18} /> Dashboard
                 </Link>
@@ -126,9 +125,8 @@ const NavLinks = ({
                             <Link
                                 to="/incomes"
                                 onClick={onClick}
-                                className={`flex items-center gap-2 transition-colors duration-200 ${
-                                    isActive('/incomes') ? 'text-blue-400' : 'hover:text-blue-400'
-                                }`}
+                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/incomes') ? 'text-blue-400' : 'hover:text-blue-400'
+                                    }`}
                             >
                                 <TrendingUp size={16} /> Incomes
                             </Link>
@@ -137,9 +135,8 @@ const NavLinks = ({
                             <Link
                                 to="/expenses"
                                 onClick={onClick}
-                                className={`flex items-center gap-2 transition-colors duration-200 ${
-                                    isActive('/expenses') ? 'text-blue-400' : 'hover:text-blue-400'
-                                }`}
+                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/expenses') ? 'text-blue-400' : 'hover:text-blue-400'
+                                    }`}
                             >
                                 <TrendingDown size={16} /> Expenses
                             </Link>
@@ -168,9 +165,8 @@ const NavLinks = ({
                             <Link
                                 to="/members"
                                 onClick={onClick}
-                                className={`flex items-center gap-2 transition-colors duration-200 ${
-                                    isActive('/members') ? 'text-blue-400' : 'hover:text-blue-400'
-                                }`}
+                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/members') ? 'text-blue-400' : 'hover:text-blue-400'
+                                    }`}
                             >
                                 <Users size={16} /> Membros
                             </Link>
@@ -179,9 +175,8 @@ const NavLinks = ({
                             <Link
                                 to="/settings"
                                 onClick={onClick}
-                                className={`flex items-center gap-2 transition-colors duration-200 ${
-                                    isActive('/settings') ? 'text-blue-400' : 'hover:text-blue-400'
-                                }`}
+                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/settings') ? 'text-blue-400' : 'hover:text-blue-400'
+                                    }`}
                             >
                                 <Settings size={16} /> Configurações
                             </Link>
@@ -195,9 +190,8 @@ const NavLinks = ({
                     <Link
                         to="/register"
                         onClick={onClick}
-                        className={`flex items-center gap-2 transition-colors duration-200 ${
-                            isActive('/register') ? 'text-blue-400' : 'hover:text-blue-400'
-                        }`}
+                        className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/register') ? 'text-blue-400' : 'hover:text-blue-400'
+                            }`}
                     >
                         Register
                     </Link>

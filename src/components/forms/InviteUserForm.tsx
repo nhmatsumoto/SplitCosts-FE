@@ -39,7 +39,7 @@ const InviteUserForm = ({ onSubmit }: Props) => {
                 type="submit"
                 className="bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition"
             >
-            Enviar Convite
+                Enviar Convite
             </button>
         </form>
     );

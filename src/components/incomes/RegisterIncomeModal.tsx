@@ -8,7 +8,7 @@ interface ModalsProps {
 }
 
 const RegisterIncomeModal = ({ modalType, closeModal }: ModalsProps) => {
-   
+
     const handleIncomeSubmit = (data: { description: string; amount: number }) => {
         console.log("Income submitted:", data);
         closeModal();

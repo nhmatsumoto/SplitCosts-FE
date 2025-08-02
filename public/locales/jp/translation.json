@@ -1,6 +1,12 @@
 {
     "title": "私の費用",
     "select_language": "言語を選択",
-    "welcome": "アプリへようこそ",
-    "description": "これは、Reactとi18nを使用した国際化を示すシンプルなアプリです。"
+    "dashboard_title": "ダッシュボード",
+    "dashboard_description": "アプリの使用を開始するためのガイド",
+    "expenses": "費用",
+    "income": "収入",
+    "savings": "貯蓄",
+    "budget": "予算",
+    "reports": "レポート",
+    "settings": "設定"
 }

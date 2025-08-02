@@ -42,7 +42,7 @@ export default function DashboardCharts() {
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
-                
+
                 <div className="bg-white rounded-xl border border-gray-200 shadow-md p-4 flex-1">
                     <h3 className="text-lg font-semibold mb-2">Distribuição</h3>
                     <ResponsiveContainer width="100%" height={300}>

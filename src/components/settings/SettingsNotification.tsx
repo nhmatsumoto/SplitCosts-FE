@@ -20,39 +20,71 @@ const NotificationSettings = ({
     setBillReminders,
     weeklyReports,
     setWeeklyReports,
-}: Props) => {
-    return (
-        <div className="rounded-lg border bg-card text-card-foreground shadow-2xs">
-            <div className="flex flex-col space-y-1.5 p-6">
-                <div className="flex items-center space-x-2">
-                    <Bell size={16} />
-                    <h3 className="text-2xl font-semibold leading-none tracking-tight">Notificações</h3>
-                </div>
-                <p className="text-sm text-muted-foreground">Configure como você deseja receber notificações</p>
+}: Props) => (
+    <div className="rounded-xl border border-gray-100 bg-white shadow-lg transition-shadow hover:shadow-xl max-w-2xl mx-auto">
+        <div className="p-6 border-b border-gray-100">
+            <div className="flex items-center space-x-3">
+                <Bell size={20} className="text-indigo-600" />
+                <h3 className="text-2xl font-bold text-gray-900 tracking-tight">Notificações</h3>
             </div>
-            <div className="p-6 pt-0 space-y-4">
-                <Switch label="Notificações por Email" description="Receba resumos mensais e alertas importantes" checked={emailNotifications} onChange={setEmailNotifications} />
-                <Switch label="Alertas de Orçamento" description="Seja notificado quando ultrapassar limites de gastos" checked={budgetAlerts} onChange={setBudgetAlerts} />
-                <Switch label="Lembretes de Contas" description="Receba lembretes de contas próximas do vencimento" checked={billReminders} onChange={setBillReminders} />
-                <Switch label="Relatórios Semanais" description="Resumo semanal das suas finanças" checked={weeklyReports} onChange={setWeeklyReports} />
-            </div>
+            <p className="mt-1 text-sm text-gray-500">Configure como você deseja receber notificações</p>
         </div>
-    );
-};
+        <div className="p-6 space-y-6">
+            <Switch
+                label="Notificações por Email"
+                description="Receba resumos mensais e alertas importantes"
+                checked={emailNotifications}
+                onChange={setEmailNotifications}
+            />
+            <Switch
+                label="Alertas de Orçamento"
+                description="Seja notificado quando ultrapassar limites de gastos"
+                checked={budgetAlerts}
+                onChange={setBudgetAlerts}
+            />
+            <Switch
+                label="Lembretes de Contas"
+                description="Receba lembretes de contas próximas do vencimento"
+                checked={billReminders}
+                onChange={setBillReminders}
+            />
+            <Switch
+                label="Relatórios Semanais"
+                description="Resumo semanal das suas finanças"
+                checked={weeklyReports}
+                onChange={setWeeklyReports}
+            />
+            <button className="w-full px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-lg hover:from-indigo-700 hover:to-indigo-600 transition-all focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Salvar Configurações
+            </button>
+        </div>
+    </div>
+);
 
-const Switch = ({ label, description, checked, onChange }: any) => (
-    <div className="flex items-center justify-between">
-        <div className="space-y-0.5">
-            <label className="text-sm font-medium">{label}</label>
-            <p className="text-sm text-muted-foreground">{description}</p>
+interface SwitchProps {
+    label: string;
+    description: string;
+    checked: boolean;
+    onChange: (value: boolean) => void;
+}
+
+const Switch = ({ label, description, checked, onChange }: SwitchProps) => (
+    <div className="flex items-center justify-between py-2">
+        <div className="space-y-1">
+            <label className="text-sm font-medium text-gray-700">{label}</label>
+            <p className="text-sm text-gray-500">{description}</p>
         </div>
         <button
             role="switch"
             aria-checked={checked}
-            className={`peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 transition-colors ${checked ? 'bg-primary' : 'bg-input'}`}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full border border-gray-300 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${checked ? 'bg-indigo-600' : 'bg-gray-200'
+                }`}
             onClick={() => onChange(!checked)}
         >
-            <span className={`block h-5 w-5 rounded-full bg-background shadow-lg transition-transform ${checked ? 'translate-x-5' : 'translate-x-0'}`} />
+            <span
+                className={`inline-block h-5 w-5 rounded-full bg-white shadow-md transform transition-transform duration-200 ease-in-out ${checked ? 'translate-x-5' : 'translate-x-0'
+                    }`}
+            />
         </button>
     </div>
 );

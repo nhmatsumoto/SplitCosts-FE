@@ -107,7 +107,7 @@ const UserRegistrationForm = ({ onSubmit }: Props) => {
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded-lg transition"
                 >
-                Cadastrar
+                    Cadastrar
                 </button>
             </form>
         </div>

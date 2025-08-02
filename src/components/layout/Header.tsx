@@ -1,4 +1,3 @@
-import { Globe } from "lucide-react";
 import LanguageSelector from "../LanguageSelector";
 
 type HeaderProps = {
