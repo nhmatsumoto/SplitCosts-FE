@@ -9,8 +9,8 @@ interface Props {
     setUserPhone: (value: string) => void;
 }
 
-const UserProfile = ({ userName, setUserName, userEmail, setUserEmail, userPhone, setUserPhone }: Props) => (
-    <div className="rounded-xl border border-gray-100 bg-white shadow-lg transition-shadow hover:shadow-xl max-w-2xl mx-auto">
+const ProfileSettings = ({ userName, setUserName, userEmail, setUserEmail, userPhone, setUserPhone }: Props) => (
+    <div className="rounded-xl border border-gray-100 bg-white shadow-lg transition-shadow hover:shadow-xl w-full">
         <div className="p-6 border-b border-gray-100">
             <div className="flex items-center space-x-3">
                 <User size={20} className="text-indigo-600" />
@@ -21,7 +21,7 @@ const UserProfile = ({ userName, setUserName, userEmail, setUserEmail, userPhone
         <div className="p-6 space-y-6">
             <div className="flex items-center space-x-4">
                 <span className="relative flex shrink-0 overflow-hidden rounded-full h-20 w-20 ring-2 ring-indigo-100 transition-transform hover:scale-105">
-                    <img className="aspect-square h-full w-full object-cover" src="/placeholder-user.jpg" alt="User Avatar" />
+                    <img className="aspect-square h-full w-full object-cover" src={'./vite.svg'} alt="User Avatar" />
                 </span>
                 <button className="px-4 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors">
                     Alterar Foto
@@ -46,9 +46,12 @@ const UserProfile = ({ userName, setUserName, userEmail, setUserEmail, userPhone
                     </div>
                 </div>
             </div>
-            <button className="w-full px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-lg hover:from-indigo-700 hover:to-indigo-600 transition-all focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                Salvar Perfil
-            </button>
+            <div className="flex justify-end">
+                <button className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    Salvar Perfil
+                </button>
+            </div>
+
         </div>
     </div>
 );
@@ -67,4 +70,4 @@ const Input = ({ label, id, type = 'text', value, onChange }: any) => (
     </div>
 );
 
-export default UserProfile;
+export default ProfileSettings;

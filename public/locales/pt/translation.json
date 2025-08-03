@@ -7,5 +7,13 @@
     "savings": "Poupanças",
     "budget": "Orçamento",
     "reports": "Relatórios",
-    "settings": "Configurações"
+    "settings": "Configurações",
+    "menu_dashboard": "Dashboard",
+    "menu_transactions": "Transações",
+    "menu_incomes": "Receitas",
+    "menu_expenses": "Despesas",
+    "menu_management": "Gestão",
+    "menu_members": "Membros",
+    "menu_settings": "Configurações",
+    "menu_register": "Register"
 }

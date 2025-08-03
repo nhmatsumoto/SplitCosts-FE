@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DashboardModals from "../../components/dashboard/DashboardModals";
 import DashboardCharts from "../../components/dashboard/DashboardCharts";
 import RecentTransactions from "../../components/dashboard/RecentTransactions";
@@ -8,7 +8,6 @@ import MetricCard from "../../components/MetricCard";
 import { DollarSign, TrendingDown, TrendingUp, Users } from "lucide-react";
 import { useCurrencyFormatter } from "../../hooks/useCurrencyFormatter";
 import { useTranslation } from "react-i18next";
-
 
 const Dashboard = () => {
 
@@ -21,6 +20,11 @@ const Dashboard = () => {
     const handleButtonClick = () => {
         alert("Button clicked");
     }
+
+    //fix temporário para bug do scroll no dashboard
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <>

@@ -1,48 +1,14 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { DollarSign, Globe, ChevronDown } from 'lucide-react';
-import UserProfile from '../../components/UserProfile';
-import ResidenceSettings from '../../components/settings/SettingsResidence';
-import NotificationSettings from '../../components/settings/SettingsNotification';
-import DangerZone from '../../components/settings/DangerZone';
+import { Globe, ChevronDown } from 'lucide-react';
+import ResidenceSettings from '../../components/settings/ResidenceSettings';
+import NotificationSettings from '../../components/settings/NotificationSettings';
+import DangerZone from '../../components/settings/DangerZoneSettings';
 import SecuritySettings from '../../components/settings/SecuritySettings';
 import Header from '../../components/layout/Header';
+import CurrencySettings from '../../components/settings/CurrencySettings';
+import ProfileSettings from '../../components/settings/ProfileSettings';
 
-
-interface CurrencySettingsProps {
-    currency: string;
-    setCurrency: (value: string) => void;
-}
-
-const CurrencySettings = ({ currency, setCurrency }: CurrencySettingsProps) => (
-    <div className="rounded-xl border border-gray-100 bg-white shadow-lg transition-shadow hover:shadow-xl">
-        <div className="p-6 border-b border-gray-100">
-            <div className="flex items-center space-x-3">
-                <DollarSign size={20} className="text-indigo-600" />
-                <h3 className="text-2xl font-bold text-gray-900 tracking-tight">Configurações de Moeda</h3>
-            </div>
-            <p className="mt-1 text-sm text-gray-500">Escolha a moeda padrão para suas transações</p>
-        </div>
-        <div className="p-6">
-            <div className="space-y-2">
-                <label htmlFor="currency" className="text-sm font-medium text-gray-700">Moeda</label>
-                <div className="relative">
-                    <select
-                        id="currency"
-                        value={currency}
-                        onChange={(e) => setCurrency(e.target.value)}
-                        className="appearance-none w-full h-11 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
-                    >
-                        <option value="BRL">Real Brasileiro (R$)</option>
-                        <option value="USD">Dólar Americano (US$)</option>
-                        <option value="EUR">Euro (€)</option>
-                    </select>
-                    <ChevronDown size={16} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
-                </div>
-            </div>
-        </div>
-    </div>
-);
 
 interface LanguageSelectorProps {
     language: string;
@@ -197,7 +163,7 @@ const Settings = () => {
     };
 
     return (
-        <div className="max-w-2xl mx-auto space-y-8">
+        <div className="space-y-6">
             <Header
                 title="Configurações"
                 description="Gerencie suas configurações pessoais, da residência e de segurança"
@@ -215,7 +181,7 @@ const Settings = () => {
                 </div>
             )}
             <div className="space-y-6">
-                <UserProfile
+                <ProfileSettings
                     userName={userName}
                     setUserName={setUserName}
                     userEmail={userEmail}
@@ -249,10 +215,7 @@ const Settings = () => {
                     onChangePassword={handleChangePassword}
                     onConfigure2FA={handleConfigure2FA}
                 />
-                <CurrencySettings
-                    currency={currency}
-                    setCurrency={setCurrency}
-                />
+                <CurrencySettings />
                 <LanguageSelector
                     language={language}
                     setLanguage={setLanguage}

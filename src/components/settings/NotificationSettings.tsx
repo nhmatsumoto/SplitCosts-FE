@@ -11,7 +11,7 @@ interface Props {
     setWeeklyReports: (value: boolean) => void;
 }
 
-const NotificationSettings = ({
+const SettingsNotification = ({
     emailNotifications,
     setEmailNotifications,
     budgetAlerts,
@@ -21,7 +21,7 @@ const NotificationSettings = ({
     weeklyReports,
     setWeeklyReports,
 }: Props) => (
-    <div className="rounded-xl border border-gray-100 bg-white shadow-lg transition-shadow hover:shadow-xl max-w-2xl mx-auto">
+    <div className="rounded-xl border border-gray-100 bg-white shadow-lg transition-shadow hover:shadow-xl w-full">
         <div className="p-6 border-b border-gray-100">
             <div className="flex items-center space-x-3">
                 <Bell size={20} className="text-indigo-600" />
@@ -54,9 +54,14 @@ const NotificationSettings = ({
                 checked={weeklyReports}
                 onChange={setWeeklyReports}
             />
-            <button className="w-full px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-lg hover:from-indigo-700 hover:to-indigo-600 transition-all focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                Salvar Configurações
-            </button>
+
+
+            <div className="flex justify-end">
+                <button className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    Salvar Configurações
+                </button>
+            </div>
+
         </div>
     </div>
 );
@@ -89,4 +94,4 @@ const Switch = ({ label, description, checked, onChange }: SwitchProps) => (
     </div>
 );
 
-export default NotificationSettings;
+export default SettingsNotification;

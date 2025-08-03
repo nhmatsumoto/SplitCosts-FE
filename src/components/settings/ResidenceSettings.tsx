@@ -7,8 +7,8 @@ interface Props {
     setAddress: (value: string) => void;
 }
 
-const SettingsResidence = ({ residenceName, setResidenceName, address, setAddress }: Props) => (
-    <div className="rounded-xl border border-gray-100 bg-white shadow-lg transition-shadow hover:shadow-xl max-w-2xl mx-auto">
+const ResidenceSettings = ({ residenceName, setResidenceName, address, setAddress }: Props) => (
+    <div className="rounded-xl border border-gray-100 bg-white shadow-lg transition-shadow hover:shadow-xl w-full">
         <div className="p-6 border-b border-gray-100">
             <div className="flex items-center space-x-3">
                 <Home size={20} className="text-indigo-600" />
@@ -44,9 +44,15 @@ const SettingsResidence = ({ residenceName, setResidenceName, address, setAddres
                     onChange={(e) => setAddress(e.target.value)}
                 />
             </div>
-            <button className="w-full px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-lg hover:from-indigo-700 hover:to-indigo-600 transition-all focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                Salvar Configurações
-            </button>
+
+            <div className="flex justify-end">
+                <button
+                    className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    onClick={() => console.log("salvando configurações")}
+                >
+                    Salvar Configurações
+                </button>
+            </div>
         </div>
     </div>
 );
@@ -65,4 +71,4 @@ const Input = ({ label, id, type = 'text', value, onChange }: any) => (
     </div>
 );
 
-export default SettingsResidence;
+export default ResidenceSettings;

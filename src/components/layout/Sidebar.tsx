@@ -44,12 +44,12 @@ const Sidebar = () => {
                 </div>
 
                 <div className="p-4 border-b border-gray-700">
-                    <label className="block mb-1 text-sm text-gray-400">Selecionar residência</label>
+                    <label className="block mb-1 text-sm text-gray-400">{t('select_residence')}</label>
                     <div className="relative">
                         <select className="w-full bg-gray-800 text-white border border-gray-600 rounded px-3 py-2 pr-8 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option>Residência A</option>
-                            <option>Residência B</option>
-                            <option>Residência C</option>
+                            <option>{t('residence_a')}</option>
+                            <option>{t('residence_b')}</option>
+                            <option>{t('residence_c')}</option>
                         </select>
                         <ChevronDown className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
                     </div>
@@ -90,6 +90,8 @@ const NavLinks = ({
         ['/incomes', '/expenses'].includes(location.pathname)
     );
 
+    const { t } = useTranslation();
+
     const isActive = (path: string) => location.pathname === path;
 
     return (
@@ -101,7 +103,7 @@ const NavLinks = ({
                     className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/dashboard') ? 'text-blue-400' : 'hover:text-blue-400'
                         }`}
                 >
-                    <ChartColumn size={18} /> Dashboard
+                    <ChartColumn size={18} /> {t('menu_dashboard')}
                 </Link>
             </li>
 
@@ -111,7 +113,7 @@ const NavLinks = ({
                     className="flex items-center justify-between w-full hover:text-blue-400 transition-colors duration-200"
                 >
                     <span className="flex items-center gap-2">
-                        <ArrowLeftRight size={18} /> Transações
+                        <ArrowLeftRight size={18} /> {t('menu_transactions')}
                     </span>
                     {submenuTransacoesOpen ? (
                         <ChevronDown size={16} />
@@ -128,7 +130,7 @@ const NavLinks = ({
                                 className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/incomes') ? 'text-blue-400' : 'hover:text-blue-400'
                                     }`}
                             >
-                                <TrendingUp size={16} /> Incomes
+                                <TrendingUp size={16} /> {t('menu_incomes')}
                             </Link>
                         </li>
                         <li>
@@ -138,7 +140,7 @@ const NavLinks = ({
                                 className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/expenses') ? 'text-blue-400' : 'hover:text-blue-400'
                                     }`}
                             >
-                                <TrendingDown size={16} /> Expenses
+                                <TrendingDown size={16} /> {t('menu_expenses')}
                             </Link>
                         </li>
                     </ul>
@@ -151,7 +153,7 @@ const NavLinks = ({
                     className="flex items-center justify-between w-full hover:text-blue-400 transition-colors duration-200"
                 >
                     <span className="flex items-center gap-2">
-                        <Users size={18} /> Gestão
+                        <Users size={18} /> {t('menu_management')}
                     </span>
                     {submenuGestaoOpen ? (
                         <ChevronDown size={16} />
@@ -168,7 +170,7 @@ const NavLinks = ({
                                 className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/members') ? 'text-blue-400' : 'hover:text-blue-400'
                                     }`}
                             >
-                                <Users size={16} /> Membros
+                                <Users size={16} /> {t('menu_members')}
                             </Link>
                         </li>
                         <li>
@@ -178,7 +180,7 @@ const NavLinks = ({
                                 className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/settings') ? 'text-blue-400' : 'hover:text-blue-400'
                                     }`}
                             >
-                                <Settings size={16} /> Configurações
+                                <Settings size={16} /> {t('menu_settings')}
                             </Link>
                         </li>
                     </ul>
@@ -193,7 +195,7 @@ const NavLinks = ({
                         className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/register') ? 'text-blue-400' : 'hover:text-blue-400'
                             }`}
                     >
-                        Register
+                        {t('menu_register')}
                     </Link>
                 </li>
             )}

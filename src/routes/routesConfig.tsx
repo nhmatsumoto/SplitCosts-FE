@@ -9,10 +9,10 @@ import Members from '../pages/private/Members';
 import Settings from '../pages/private/Settings';
 
 export interface AppRoute {
-  path: string;
-  name: string;
-  element: ReactNode;
-  private?: boolean;
+    path: string;
+    name: string;
+    element: ReactNode;
+    private?: boolean;
 }
 
 export const appRoutes: AppRoute[] = [

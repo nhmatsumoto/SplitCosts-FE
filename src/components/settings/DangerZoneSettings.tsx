@@ -5,8 +5,8 @@ interface Props {
     onDeleteAccount?: () => void;
 }
 
-const DangerZone = ({ onDeleteResidence, onDeleteAccount }: Props) => (
-    <div className="rounded-xl border border-red-200 bg-white shadow-lg transition-shadow hover:shadow-xl max-w-2xl mx-auto">
+const DangerZoneSettings = ({ onDeleteResidence, onDeleteAccount }: Props) => (
+    <div className="rounded-xl border border-red-200 bg-white shadow-lg transition-shadow hover:shadow-xl w-full">
         <div className="p-6 border-b border-red-100">
             <div className="flex items-center space-x-3">
                 <Trash size={20} className="text-red-600" />
@@ -50,4 +50,4 @@ const DangerAction = ({ label, description, onClick }: DangerActionProps) => (
     </div>
 );
 
-export default DangerZone;
+export default DangerZoneSettings;

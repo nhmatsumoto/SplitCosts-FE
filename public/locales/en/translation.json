@@ -1,6 +1,19 @@
 {
     "title": "My Expenses",
-    "select_language": "Select Language",
-    "welcome": "Welcome to the App",
-    "description": "This is a simple app demonstrating internationalization with React and i18n."
+    "dashboard_title": "Dashboard",
+    "dashboard_description": "View and manage your expenses efficiently.",
+    "expenses": "Expenses",
+    "income": "Income",
+    "savings": "Savings",
+    "budget": "Budget",
+    "reports": "Reports",
+    "settings": "Settings",
+    "menu_dashboard": "Dashboard",
+    "menu_transactions": "Transactions",
+    "menu_incomes": "Incomes",
+    "menu_expenses": "Expenses",
+    "menu_management": "Management",
+    "menu_members": "Members",
+    "menu_settings": "Settings",
+    "menu_register": "Register"
 }
