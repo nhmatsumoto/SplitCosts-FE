@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useCurrencyFormatter } from "../../hooks/useCurrencyFormatter";
 
 type CategoryExpense = {
@@ -18,14 +19,17 @@ const data: CategoryExpense[] = [
 const ExpensesByCategory = () => {
 
     const { formatCurrency } = useCurrencyFormatter();
+    const { t } = useTranslation();
 
     return (
         <div className="bg-white rounded-xl border border-gray-200 shadow-md m-6">
             <div className="flex flex-col space-y-1.5 p-6">
                 <h3 className="text-2xl font-semibold tracking-tight text-gray-800">
-                    Despesas por Categoria
+                    {t('dashboard_chart_expenses_by_category_title')}
                 </h3>
-                <p className="text-sm text-gray-500">Distribuição dos seus gastos mensais</p>
+                <p className="text-sm text-gray-500">
+                    {t('dashboard_chart_expenses_by_category_subtitle')}
+                </p>
             </div>
 
             <div className="p-6 pt-0 space-y-6">

@@ -1,9 +1,14 @@
+import { useState } from "react";
 import ExpensesSummary from "../../components/expenses/ExpensesSummary";
 import ExpensesTable from "../../components/expenses/ExpensesTable";
+import RegisterExpenseModal from "../../components/expenses/RegisterExpenseModal";
 import Header from "../../components/layout/Header";
-import type { ExpenseItem } from "../../types/ExpenseItem";
+import type { Expense } from "../../types/Expense";
 
 const Expenses = () => {
+
+    const [modalType, setModalType] = useState<"expense" | null>(null);
+    const closeModal = () => setModalType(null);
 
     const AddExpense = () => {
         throw new Error("Function not implemented.");
@@ -14,7 +19,7 @@ const Expenses = () => {
         alert('Edit functionality not implemented');
     }
 
-    const defaultData: ExpenseItem[] = [
+    const defaultData: Expense[] = [
         { id: '1', name: 'Energia elétrica', amount: 320.0, status: 'Pago' },
         { id: '2', name: 'Internet', amount: 120.0, status: 'Pendente' },
     ];
@@ -30,6 +35,10 @@ const Expenses = () => {
             />
             <ExpensesSummary total={0} paid={0} pending={0} />
             <ExpensesTable data={defaultData} onEdit={EditExpense} />
+            <RegisterExpenseModal 
+                modalType={modalType} // Replace with actual modal type state
+                closeModal={() => closeModal()} // Replace with actual close modal function
+            />
         </div>
     );
 };

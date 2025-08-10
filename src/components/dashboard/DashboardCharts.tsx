@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
     AreaChart,
     Area,
@@ -21,38 +22,50 @@ const data = [
 ];
 
 export default function DashboardCharts() {
+    const { t } = useTranslation();
+
     return (
         <div className="m-6">
-            <h2 className="text-2xl font-bold mb-2">Visão Geral</h2>
+            <h2 className="text-2xl font-bold mb-2">
+                {t('dashboard_chart_overview')}
+            </h2>
             <p className="text-sm text-muted-foreground mb-6">
-                Crescimento mensal em entradas e saídas
+                {t('dashboard_chart_monthly_growth')}
             </p>
 
             <div className="flex flex-col lg:flex-row gap-6">
                 <div className="bg-white rounded-xl border border-gray-200 shadow-md p-4 flex-1">
-                    <h3 className="text-lg font-semibold mb-2">Entradas vs Saídas</h3>
+                    <h3 className="text-lg font-semibold mb-2">
+                        {t('dashboard_chart_income_vs_expenses')}
+                    </h3>
                     <ResponsiveContainer width="100%" height={300}>
                         <BarChart data={data}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="name" />
                             <YAxis />
                             <Tooltip />
-                            <Bar dataKey="entradas" stackId="a" fill="#6366f1" />
-                            <Bar dataKey="saidas" stackId="a" fill="#ec4899" />
+                            <Bar dataKey="entradas" name={t('dashboard_chart_income')} stackId="a" fill="#6366f1" />
+                            <Bar dataKey="saidas" name={t('dashboard_chart_expenses')} stackId="a" fill="#ec4899" />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
 
                 <div className="bg-white rounded-xl border border-gray-200 shadow-md p-4 flex-1">
-                    <h3 className="text-lg font-semibold mb-2">Distribuição</h3>
+                    <h3 className="text-lg font-semibold mb-2">
+                        {t('dashboard_chart_distribution')}
+                    </h3>
                     <ResponsiveContainer width="100%" height={300}>
                         <AreaChart data={data} stackOffset="expand">
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="name" />
                             <YAxis tickFormatter={(val) => `${(val * 100).toFixed(0)}%`} />
-                            <Tooltip formatter={(val: number | string) => `${(Number(val) * 100).toFixed(0)}%`} />
-                            <Area type="monotone" dataKey="entradas" stackId="1" stroke="#6366f1" fill="#6366f1" />
-                            <Area type="monotone" dataKey="saidas" stackId="1" stroke="#ec4899" fill="#ec4899" />
+                            <Tooltip
+                                formatter={(val: number | string) =>
+                                    `${(Number(val) * 100).toFixed(0)}%`
+                                }
+                            />
+                            <Area type="monotone" dataKey="entradas" name={t('dashboard_chart_income')} stackId="1" stroke="#6366f1" fill="#6366f1" />
+                            <Area type="monotone" dataKey="saidas" name={t('dashboard_chart_expenses')} stackId="1" stroke="#ec4899" fill="#ec4899" />
                         </AreaChart>
                     </ResponsiveContainer>
                 </div>

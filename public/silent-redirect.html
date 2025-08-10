@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Silent Redirect</title>
+    <script>
+        window.onload = function () {
+            if (window.opener && window.opener !== window) {
+                window.opener.postMessage(window.location.href, window.location.origin);
+                window.close();
+            } else if (window.parent !== window) {
+                window.parent.postMessage(window.location.href, window.location.origin);
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <p>Carregando...</p>
+</body>
+
+</html>

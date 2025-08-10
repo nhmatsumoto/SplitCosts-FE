@@ -1,6 +1,6 @@
 import { type ColumnDef, createColumnHelper } from '@tanstack/react-table';
 import GenericTable from '../GenericTable';
-import type { ExpenseItem } from '../../types/ExpenseItem';
+import type { ExpenseItem } from '../../types/Expense';
 
 const formatCurrency = (value: number) =>
     value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
