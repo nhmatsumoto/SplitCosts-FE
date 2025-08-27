@@ -10,10 +10,6 @@ const Expenses = () => {
     const [modalType, setModalType] = useState<"expense" | null>(null);
     const closeModal = () => setModalType(null);
 
-    const AddExpense = () => {
-        throw new Error("Function not implemented.");
-    }
-
     const EditExpense = () => {
 
         alert('Edit functionality not implemented');
@@ -30,12 +26,13 @@ const Expenses = () => {
                 title="Expenses"
                 description="Gerencie as despesas."
                 buttonLabel="Adicionar Despesa"
-                onButtonClick={() => AddExpense()}
+                onButtonClick={() => setModalType("expense")}
                 buttonClassName="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700"
             />
-            <ExpensesSummary total={0} paid={0} pending={0} />
+            <ExpensesSummary total={1203} paid={43430} pending={44} />
             <ExpensesTable data={defaultData} onEdit={EditExpense} />
             <RegisterExpenseModal 
+
                 modalType={modalType} // Replace with actual modal type state
                 closeModal={() => closeModal()} // Replace with actual close modal function
             />

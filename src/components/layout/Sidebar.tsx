@@ -12,7 +12,7 @@ import {
     House,
     ChevronDown,
     ChevronRight,
-    ArrowLeftRight,
+    ArrowLeftRight
 } from 'lucide-react';
 import Footer from './Footer';
 import { useTranslation } from 'react-i18next';
@@ -43,18 +43,6 @@ const Sidebar = () => {
                     <span>{t('title')}</span>
                 </div>
 
-                <div className="p-4 border-b border-gray-700">
-                    <label className="block mb-1 text-sm text-gray-400">{t('select_residence')}</label>
-                    <div className="relative">
-                        <select className="w-full bg-gray-800 text-white border border-gray-600 rounded px-3 py-2 pr-8 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option>{t('residence_a')}</option>
-                            <option>{t('residence_b')}</option>
-                            <option>{t('residence_c')}</option>
-                        </select>
-                        <ChevronDown className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
-                    </div>
-                </div>
-
                 <nav className="p-4 flex-1">
                     <ul className="flex flex-col gap-2">
                         <NavLinks auth={auth} onClick={closeSidebar} />
@@ -83,9 +71,11 @@ const NavLinks = ({
     onClick?: () => void;
 }) => {
     const location = useLocation();
+
     const [submenuGestaoOpen, setSubmenuGestaoOpen] = useState(() =>
         ['/members', '/settings'].includes(location.pathname)
     );
+
     const [submenuTransacoesOpen, setSubmenuTransacoesOpen] = useState(() =>
         ['/incomes', '/expenses'].includes(location.pathname)
     );
@@ -146,6 +136,56 @@ const NavLinks = ({
                     </ul>
                 )}
             </li>
+
+            {/* <li>
+                <button
+                    onClick={() => setSubmenuInvestimentosOpen(!submenuInvestimentosOpen)}
+                    className="flex items-center justify-between w-full hover:text-blue-400 transition-colors duration-200"
+                >
+                    <span className="flex items-center gap-2">
+                        <ChartCandlestick size={18} /> {t('menu_investments')}
+                    </span>
+                    {submenuInvestimentosOpen ? (
+                        <ChevronDown size={16} />
+                    ) : (
+                        <ChevronRight size={16} />
+                    )}
+                </button>
+                {submenuInvestimentosOpen && (
+                    <ul className="ml-6 mt-2 flex flex-col gap-2 text-sm text-gray-300">
+                        <li>
+                            <Link
+                                to="/investments"
+                                onClick={onClick}
+                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/investments') ? 'text-blue-400' : 'hover:text-blue-400'
+                                    }`}
+                            >
+                                <ChartColumn size={16} /> {t('menu_all_investments')}
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/stocks"
+                                onClick={onClick}
+                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/stocks') ? 'text-blue-400' : 'hover:text-blue-400'
+                                    }`}
+                            >
+                                <TrendingUp size={16} /> {t('menu_stocks')}
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/dividends"
+                                onClick={onClick}
+                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/dividends') ? 'text-blue-400' : 'hover:text-blue-400'
+                                    }`}
+                            >
+                                <TrendingDown size={16} /> {t('menu_dividends')}
+                            </Link>
+                        </li>
+                    </ul>
+                )}
+            </li> */}
 
             <li>
                 <button

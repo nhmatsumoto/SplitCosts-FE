@@ -2,23 +2,45 @@ import { useState } from 'react';
 import MoneyInput from '../MoneyInput';
 
 interface IncomeFormProps {
-    onSubmit: (data: { description: string; category: string; amount: number }) => void;
+    onSubmit: (data: { 
+        amount: number,
+        date: Date,
+        description: string; 
+        category: string; 
+        userId: string,
+        residenceId: string
+    }) => void;
 }
 
 const IncomeForm = ({ onSubmit }: IncomeFormProps) => {
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [amount, setAmount] = useState<number | null>(null);
+    const [userId, setUserId] = useState<string | null>(null);
+    const [residenceId, setResidenceId] = useState<string | null>(null);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!description || !category || amount === null) {
-            return alert('Preencha todos os campos');
+
+        if (amount === null || !userId || !residenceId || !category) {
+            // Pode adicionar feedback para o usuário aqui
+            return;
         }
-        onSubmit({ description, category, amount });
+
+        onSubmit({
+            amount,
+            date: new Date(),
+            description,
+            category,
+            userId,
+            residenceId
+        });
+
         setDescription('');
         setCategory('');
         setAmount(null);
+        setUserId(null);
+        setResidenceId(null);
     };
 
     return (
