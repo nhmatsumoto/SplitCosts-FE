@@ -1,46 +1,50 @@
 import { useState } from 'react';
 import MoneyInput from '../MoneyInput';
+import IncomeApi from '../../api/income';
+
 
 interface IncomeFormProps {
-    onSubmit: (data: { 
-        amount: number,
-        date: Date,
-        description: string; 
-        category: string; 
-        userId: string,
-        residenceId: string
-    }) => void;
+    onSuccess?: () => void; // opcional, para atualizar lista após criar
 }
 
-const IncomeForm = ({ onSubmit }: IncomeFormProps) => {
+const IncomeForm = ({ onSuccess }: IncomeFormProps) => {
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [amount, setAmount] = useState<number | null>(null);
     const [userId, setUserId] = useState<string | null>(null);
     const [residenceId, setResidenceId] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (amount === null || !userId || !residenceId || !category) {
-            // Pode adicionar feedback para o usuário aqui
-            return;
+        if (amount === null || !userId || !residenceId || !category) return;
+
+        alert(JSON.stringify({ description, category, amount, userId, residenceId }));
+
+        setLoading(true);
+        try {
+            await IncomeApi.create({
+                amount,
+                date: new Date(),
+                description,
+                category,
+                userId,
+                residenceId
+            });
+
+            setDescription('');
+            setCategory('');
+            setAmount(null);
+            setUserId(null);
+            setResidenceId(null);
+
+            if (onSuccess) onSuccess();
+        } catch (error) {
+            console.error('Erro ao criar entrada:', error);
+        } finally {
+            setLoading(false);
         }
-
-        onSubmit({
-            amount,
-            date: new Date(),
-            description,
-            category,
-            userId,
-            residenceId
-        });
-
-        setDescription('');
-        setCategory('');
-        setAmount(null);
-        setUserId(null);
-        setResidenceId(null);
     };
 
     return (
@@ -74,8 +78,9 @@ const IncomeForm = ({ onSubmit }: IncomeFormProps) => {
             <button
                 type="submit"
                 className="bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+                disabled={loading}
             >
-                Adicionar Entrada
+                {loading ? 'Adicionando...' : 'Adicionar Entrada'}
             </button>
         </form>
     );

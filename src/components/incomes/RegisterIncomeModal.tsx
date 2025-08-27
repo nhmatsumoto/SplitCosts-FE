@@ -8,12 +8,6 @@ interface ModalsProps {
 }
 
 const RegisterIncomeModal = ({ modalType, closeModal }: ModalsProps) => {
-
-    const handleIncomeSubmit = (data: { description: string; amount: number }) => {
-        console.log("Income submitted:", data);
-        closeModal();
-    };
-
     return (
         <Modal
             isOpen={modalType === "income"}
@@ -21,7 +15,7 @@ const RegisterIncomeModal = ({ modalType, closeModal }: ModalsProps) => {
             title="Adicionar Receita"
         >
             <div className="mb-6">
-                <IncomeForm onSubmit={handleIncomeSubmit} />
+                <IncomeForm />
             </div>
         </Modal>
     );

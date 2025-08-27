@@ -68,7 +68,7 @@ const DashboardModals = ({ modalType, closeModal }: ModalsProps) => {
                 </div>
                 {showIncomeForm && (
                     <div className="mb-6">
-                        <IncomeForm onSubmit={handleIncomeSubmit} />
+                        <IncomeForm />
                     </div>
                 )}
             </Modal>

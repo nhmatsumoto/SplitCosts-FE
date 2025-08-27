@@ -4,9 +4,11 @@ import { useAuth } from 'react-oidc-context';
 import { toast } from 'react-toastify';
 
 export const useApiClient = (): AxiosInstance => {
+
     const { isAuthenticated, user } = useAuth();
 
     const api = useMemo(() => {
+
         const instance = axios.create({
             baseURL: import.meta.env.VITE_BACKEND_API_URL,
             timeout: 10000,
