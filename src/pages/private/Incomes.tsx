@@ -2,8 +2,8 @@ import { useState } from "react";
 import IncomesSummary from "../../components/incomes/IncomesSummary";
 import IncomeTable from "../../components/incomes/IncomeTable";
 import Header from "../../components/layout/Header";
-import RegisterIncomeModal from "../../components/incomes/RegisterIncomeModal";
-
+import Modal from "../../components/Modal";
+import IncomeForm from "../../components/forms/IncomeForm";
 
 type IncomeItem = {
     id: number;
@@ -13,6 +13,7 @@ type IncomeItem = {
     date: string;
     type: "Recorrente" | "Única";
 };
+
 
 const initialData: IncomeItem[] = [
     {
@@ -51,11 +52,17 @@ const initialData: IncomeItem[] = [
 
 const Incomes = () => {
     const [incomes, setIncomes] = useState<IncomeItem[]>(initialData);
-    const [modalType, setModalType] = useState<"income" | null>(null);
-
+    
     const totalMonthly = incomes.reduce((acc, cur) => acc + cur.value, 0);
     const recurringCount = incomes.filter((i) => i.type === "Recorrente").length;
     const uniqueCount = incomes.filter((i) => i.type === "Única").length;
+
+    // Modal state
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleOpen = () => setIsOpen(true);
+    const handleClose = () => setIsOpen(false);
+
 
     const handleEdit = (item: IncomeItem) => {
         const newDescription = prompt("Editar descrição:", item.description);
@@ -78,15 +85,13 @@ const Incomes = () => {
         }
     };
 
-    const closeModal = () => setModalType(null);
-
     return (
         <>
             <Header
                 title="Incomes"
                 description="Registre e gerencie suas receitas"
                 buttonLabel="Add Income"
-                onButtonClick={() => setModalType("income")}
+                onButtonClick={() => handleOpen()}
                 buttonClassName="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700"
             />
 
@@ -121,8 +126,14 @@ const Incomes = () => {
                     if (target) handleDelete(target);
                 }}
             />
-
-            <RegisterIncomeModal modalType={modalType} closeModal={closeModal} />
+            
+            <Modal
+                isOpen={isOpen}
+                onClose={handleClose}
+                title="Adicionar Receita"
+            >
+                <IncomeForm onSubmit={(data) => console.log(data)} />
+            </Modal>
         </>
     );
 };

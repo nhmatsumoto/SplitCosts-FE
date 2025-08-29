@@ -1,86 +1,107 @@
-import { useState } from 'react';
-import MoneyInput from '../MoneyInput';
-import IncomeApi from '../../api/income';
-
+import { useEffect, useState } from 'react';
+import createIncomeApi from '../../api/income';
+import { useAuth } from 'react-oidc-context';
 
 interface IncomeFormProps {
-    onSuccess?: () => void; // opcional, para atualizar lista após criar
+    onSubmit: (data: CreateIncomeInput) => void;
 }
 
-const IncomeForm = ({ onSuccess }: IncomeFormProps) => {
-    const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');
-    const [amount, setAmount] = useState<number | null>(null);
-    const [userId, setUserId] = useState<string | null>(null);
-    const [residenceId, setResidenceId] = useState<string | null>(null);
-    const [loading, setLoading] = useState(false);
+interface Category {
+    id: string | number;
+    name: string;
+}
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+interface CreateIncomeInput {
+    category: string;
+    amount: number;
+    description: string;
+    date?: string;
+    residenceId: string;
+    userId: string;
+}
 
-        if (amount === null || !userId || !residenceId || !category) return;
+const IncomeForm = ({ onSubmit }: IncomeFormProps) => {
+    const auth = useAuth();
+    const [categories, setCategories] = useState<Category[]>([]);
 
-        alert(JSON.stringify({ description, category, amount, userId, residenceId }));
+    const [form, setForm] = useState<CreateIncomeInput>({
+        category: '',
+        amount: 0,
+        description: '',
+        residenceId: '',
+        userId: '',
+    });
 
-        setLoading(true);
-        try {
-            await IncomeApi.create({
-                amount,
-                date: new Date(),
-                description,
-                category,
-                userId,
-                residenceId
+    useEffect(() => {
+        if (!auth?.user?.access_token) return;
+
+        const api = createIncomeApi(auth.user.access_token);
+
+        api.getCategories()
+            .then((data: Category[]) => {
+                setCategories(data);
+            })
+            .catch(err => {
+                console.error('Erro ao buscar categorias de receita:', err);
+                setCategories([]);
             });
+    }, [auth?.user?.access_token]);
 
-            setDescription('');
-            setCategory('');
-            setAmount(null);
-            setUserId(null);
-            setResidenceId(null);
+    const handleChange = <K extends keyof CreateIncomeInput>(field: K, value: any) => {
+        setForm(prev => ({ ...prev, [field]: value }));
+    };
 
-            if (onSuccess) onSuccess();
-        } catch (error) {
-            console.error('Erro ao criar entrada:', error);
-        } finally {
-            setLoading(false);
-        }
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        onSubmit({
+            ...form,
+            date: new Date().toISOString(),
+            userId: auth.user?.profile.sub ?? '',
+            residenceId: 'default-residence-id',
+        });
     };
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <input
-                type="text"
-                placeholder="Descrição"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="border border-gray-300 rounded px-3 py-2"
-            />
-
             <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                value={form.category}
+                onChange={e => handleChange('category', e.target.value)}
                 className="border border-gray-300 rounded px-3 py-2"
+                required
             >
                 <option value="">Selecione a categoria</option>
-                <option value="Salário">Salário</option>
-                <option value="Freelance">Freelance</option>
-                <option value="Investimentos">Investimentos</option>
-                <option value="Outros">Outros</option>
+                {categories.map(c => (
+                    <option key={c.id} value={c.name}>{c.name}</option>
+                ))}
             </select>
 
-            <MoneyInput
-                value={amount}
-                onChange={setAmount}
+            <input
+                type="text"
+                value={form.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                onChange={e => {
+                    const rawValue = e.target.value.replace(/\D/g, '');
+                    const numericValue = Number(rawValue) / 100;
+                    handleChange('amount', numericValue);
+                }}
                 placeholder="Valor"
+                className="border border-gray-300 rounded px-3 py-2"
+                required
+            />
+
+            <input
+                type="text"
+                value={form.description}
+                onChange={e => handleChange('description', e.target.value)}
+                placeholder="Descrição"
+                className="border border-gray-300 rounded px-3 py-2"
+                required
             />
 
             <button
                 type="submit"
                 className="bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
-                disabled={loading}
             >
-                {loading ? 'Adicionando...' : 'Adicionar Entrada'}
+                Adicionar Entrada
             </button>
         </form>
     );

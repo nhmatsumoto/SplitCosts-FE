@@ -3,11 +3,13 @@ import { AuthProvider } from 'react-oidc-context';
 import oidcConfig from './configuration/oidcConfig';
 import AppRoutes from './routes/AppRoutes';
 import './global.css';
-import { UserInitializer } from './configuration/UserInitializer';
+import AppInitializer from './AppInlitializer';
+
 
 createRoot(document.getElementById('root')!).render(
     <AuthProvider {...oidcConfig}>
-        <UserInitializer />
-        <AppRoutes />
+        <AppInitializer>
+            <AppRoutes />
+        </AppInitializer>
     </AuthProvider>
 );
