@@ -20,7 +20,7 @@ const GenericTable = <T,>({ data, columns, title, onEdit, onDelete }: GenericTab
     });
 
     return (
-        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="rounded-lg border border-gray-100 bg-white p-6 shadow-sm">
             <h4 className="text-xl font-semibold text-gray-800 mb-4">{title}</h4>
             <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200 text-sm">

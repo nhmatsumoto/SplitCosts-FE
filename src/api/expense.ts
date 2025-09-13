@@ -1,31 +1,42 @@
-// import { createApiClient } from "./client";
+import type { Expense } from '../types/Expense';
+import type { Result } from '../types/Result';
+import { createSplitCostAPIClient } from './client';
 
-// const api = client();
+export const createExpenseApi = (accessToken?: string) => {
 
-// export const ExpenseApi = {
+    const api = createSplitCostAPIClient(accessToken);
 
-//     getAll: async () => {
-//         const response = await api.get('/expense');
-//         return response.data;
-//     },
+    return {
+        getAll: async (): Promise<Result<Expense[]>> => {
+            const response = await api.get('/expense');
+            return response.data;
+        },
 
-//     getById: async (id: string) => {
-//         const response = await api.get(`/expense/${id}`);
-//         return response.data;
-//     },
+        getById: async (id: string): Promise<Result<Expense>> => {
+            const response = await api.get(`/expense/${id}`);
+            return response.data;
+        },
 
-//     create: async (payload: any) => {
-//         const response = await api.post('/expense', payload);
-//         return response.data;
-//     },
+        getCategories: async (): Promise<Result<string[]>> => {
+            const response = await api.get('/expense/categories');
+            return response.data;
+        },
 
-//     update: async (id: string, payload: any) => {
-//         const response = await api.put(`/expense/${id}`, payload);
-//         return response.data;
-//     },
+        create: async (payload: any): Promise<Result<Expense>> => {
+            const response = await api.post('/expense', payload);
+            return response.data;
+        },
 
-//     delete: async (id: string) => {
-//         const response = await api.delete(`/expense/${id}`);
-//         return response.data;
-//     }
-// };
+        update: async (id: string, payload: any): Promise<Result<Expense>> => {
+            const response = await api.put(`/expense/${id}`, payload);
+            return response.data;
+        },
+
+        delete: async (id: string): Promise<Result<null>> => {
+            const response = await api.delete(`/expense/${id}`);
+            return response.data;
+        }
+    };
+};
+
+export default createExpenseApi;

@@ -9,19 +9,14 @@ const RegisterUser = () => {
 
     useEffect(() => {
         if (auth.isAuthenticated) {
-            navigate('/dashboard');
+            navigate('/');
         }
     }, [auth.isAuthenticated, navigate]);
-
-    const handleSubmit = (data: any) => {
-        console.log('Usuário enviado:', data);
-        // enviar os dados via API
-    };
 
     return (
         <>
             {!auth.isAuthenticated && (
-            <UserRegistrationForm onSubmit={handleSubmit} />
+                <UserRegistrationForm />
             )}
         </>
     );

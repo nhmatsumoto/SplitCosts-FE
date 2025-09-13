@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import createIncomeApi from '../../api/income';
+import userSettingsApi from '../../api/userSettings';
 import { useAuth } from 'react-oidc-context';
 
 interface IncomeFormProps {
@@ -20,9 +21,10 @@ interface CreateIncomeInput {
     userId: string;
 }
 
-const IncomeForm = ({ onSubmit }: IncomeFormProps) => {
+const IncomeForm = async ({ onSubmit }: IncomeFormProps) => {
     const auth = useAuth();
     const [categories, setCategories] = useState<Category[]>([]);
+    const api = createIncomeApi(auth?.user?.access_token);
 
     const [form, setForm] = useState<CreateIncomeInput>({
         category: '',
@@ -34,8 +36,6 @@ const IncomeForm = ({ onSubmit }: IncomeFormProps) => {
 
     useEffect(() => {
         if (!auth?.user?.access_token) return;
-
-        const api = createIncomeApi(auth.user.access_token);
 
         api.getCategories()
             .then((data: Category[]) => {
@@ -53,11 +53,19 @@ const IncomeForm = ({ onSubmit }: IncomeFormProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit({
-            ...form,
-            date: new Date().toISOString(),
-            userId: auth.user?.profile.sub ?? '',
-            residenceId: 'default-residence-id',
+
+        const userSettings = userSettingsApi(auth?.user?.access_token);
+        const settings = userSettings.getById(auth?.user?.profile.sub ?? '');
+
+        settings.then(data => {
+            onSubmit({
+                ...form,
+                date: new Date().toISOString(),
+                userId: auth.user?.profile.sub ?? '',
+                residenceId: data.defaultResidenceId,
+            });
+        }).catch(err => {
+            console.error('Erro ao obter configurações do usuário:', err);
         });
     };
 

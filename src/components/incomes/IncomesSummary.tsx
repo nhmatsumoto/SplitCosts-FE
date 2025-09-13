@@ -43,7 +43,7 @@ const IncomesSummary = ({ total, recurring, unique }: IncomeStatsProps) => {
     ];
 
     return (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-6">
+        <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-3 mb-6">
             {stats.map((item, idx) => (
                 <MetricCard
                     key={idx}

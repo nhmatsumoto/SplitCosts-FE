@@ -12,10 +12,13 @@ const LogoutButton = () => {
         <button
             onClick={handleLogout}
             aria-label="Logout"
-            className="flex items-center gap-1 text-sm bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded transition"
+            className="group flex items-center gap-2 rounded-xl bg-red-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all hover:bg-red-600 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
         >
-            <LogOut size={16} />
-            <span>Logout</span>
+            <LogOut
+                size={18}
+                className="transition-transform group-hover:rotate-12"
+            />
+            <span className="hidden sm:inline">Sair</span>
         </button>
     );
 };

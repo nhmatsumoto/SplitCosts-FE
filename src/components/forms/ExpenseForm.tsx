@@ -61,8 +61,6 @@ const ExpenseForm = ({
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-
-            {/* Tipo da despesa */}
             <select
                 value={form.type}
                 onChange={(e) => handleChange('type', e.target.value)}
@@ -74,8 +72,6 @@ const ExpenseForm = ({
                     <option key={t.value} value={t.value}>{t.label}</option>
                 ))}
             </select>
-
-            {/* Categoria */}
             <select
                 value={form.category}
                 onChange={(e) => handleChange('category', e.target.value)}
@@ -87,15 +83,11 @@ const ExpenseForm = ({
                     <option key={c.value} value={c.value}>{c.label}</option>
                 ))}
             </select>
-
-            {/* Valor */}
             <MoneyInput
                 value={form.amount}
                 onChange={(val) => handleChange('amount', val ?? 0)}
                 placeholder="Valor"
             />
-
-            {/* Data */}
             <input
                 type="date"
                 value={form.date}
@@ -103,8 +95,6 @@ const ExpenseForm = ({
                 className="border border-gray-300 rounded px-3 py-2"
                 required
             />
-
-            {/* Descrição */}
             <input
                 type="text"
                 value={form.description}
@@ -113,8 +103,6 @@ const ExpenseForm = ({
                 className="border border-gray-300 rounded px-3 py-2"
                 required
             />
-
-            {/* Residência */}
             <select
                 value={form.residenceId}
                 onChange={(e) => handleChange('residenceId', e.target.value)}
@@ -126,8 +114,6 @@ const ExpenseForm = ({
                     <option key={r.value} value={r.value}>{r.label}</option>
                 ))}
             </select>
-
-            {/* Registrado por */}
             <select
                 value={form.registeredByUserId}
                 onChange={(e) => handleChange('registeredByUserId', e.target.value)}
@@ -139,8 +125,6 @@ const ExpenseForm = ({
                     <option key={u.value} value={u.value}>{u.label}</option>
                 ))}
             </select>
-
-            {/* Pago por */}
             <select
                 value={form.paidByUserId}
                 onChange={(e) => handleChange('paidByUserId', e.target.value)}
@@ -152,8 +136,6 @@ const ExpenseForm = ({
                     <option key={u.value} value={u.value}>{u.label}</option>
                 ))}
             </select>
-
-            {/* Compartilhado */}
             <label className="flex items-center gap-2">
                 <input
                     type="checkbox"
@@ -162,8 +144,6 @@ const ExpenseForm = ({
                 />
                 Dividir com membros
             </label>
-
-            {/* Lista de membros (checkboxes) */}
             {form.isSharedAmongMembers && (
                 <div className="flex flex-col gap-1">
                     <span className="text-sm font-semibold">Membros:</span>

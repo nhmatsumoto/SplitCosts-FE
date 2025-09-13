@@ -79,7 +79,7 @@ const DataTable = () => {
 
     return (
         <div className="space-y-4">
-            <div className="overflow-x-auto border border-gray-200 rounded-lg shadow-sm">
+            <div className="overflow-x-auto border border-gray-100 rounded-lg shadow-sm">
                 <table className="min-w-full divide-y divide-gray-200 text-sm">
                     <thead className="bg-gray-100 text-left">
                         {table.getHeaderGroups().map((headerGroup) => (

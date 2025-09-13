@@ -1,21 +1,9 @@
 import { useState } from 'react';
 import { useAuth } from 'react-oidc-context';
-import { Link, useLocation } from 'react-router-dom';
-import {
-    Menu,
-    X,
-    TrendingUp,
-    TrendingDown,
-    ChartColumn,
-    Users,
-    Settings,
-    House,
-    ChevronDown,
-    ChevronRight,
-    ArrowLeftRight
-} from 'lucide-react';
-import Footer from './Footer';
+import { PiggyBank, Menu, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import NavLinks from './NavLinks';
+import { motion } from "framer-motion";
 
 const Sidebar = () => {
     const auth = useAuth();
@@ -24,221 +12,67 @@ const Sidebar = () => {
     const closeSidebar = () => setOpen(false);
     const { t } = useTranslation();
 
+    const { user } = useAuth();
+    const username = user?.profile.email;
+
     return (
         <>
+            {/* Botão Mobile */}
             <button
-                className="fixed top-4 left-4 z-50 text-white bg-gray-900 p-2 rounded-md md:hidden"
+                className="fixed top-4 right-4 z-50 p-2 rounded-lg bg-sky-500 shadow-md text-gray-700 hover:bg-sky-100 transition md:hidden"
                 onClick={toggleSidebar}
-                aria-label="Toggle sidebar"
+                aria-label="Abrir/fechar menu lateral"
             >
-                {open ? <X size={24} /> : <Menu size={24} />}
+                {open ? <X size={24} className="text-white"/> : <Menu size={24} className="text-white"/>}
             </button>
 
+            {/* Sidebar */}
             <aside
-                className={`fixed top-0 left-0 h-full w-64 bg-gray-900 text-white transform transition-transform duration-300 z-40 flex flex-col ${open ? 'translate-x-0' : '-translate-x-full'
-                    } md:translate-x-0 md:relative md:w-64`}
+                className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg border-r border-gray-200 text-gray-800 transform transition-transform duration-300 z-40 flex flex-col
+                    ${open ? 'translate-x-0' : '-translate-x-full'}
+                    md:translate-x-0 md:relative md:w-64`}
             >
-                <div className="flex items-center gap-3 p-6 text-xl font-semibold border-b border-gray-700">
-                    <House size={28} />
-                    <span>{t('title')}</span>
+                {/* Cabeçalho */}
+                <div className="flex flex-col p-6 border-b border-gray-200">
+                    <div className="flex items-center gap-2 text-sm font-bold text-gray-900">
+                        <PiggyBank size={100} className="text-blue-600" />
+                        <span>{t('title')}</span>
+                    </div>
+
+                    {username && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, ease: "easeOut" }}
+                            className="mt-3 flex items-center gap-1 rounded-xl bg-gray-50 px-4 py-2 shadow-md backdrop-blur-sm border border-gray-200"
+                        >
+                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white text-sm font-semibold">
+                                {username.charAt(0).toUpperCase()}
+                            </div>
+                            <span className="text-gray-800 text-sm truncate max-w-[150px]">
+                                {username}
+                            </span>
+                        </motion.div>
+                    )}
                 </div>
 
-                <nav className="p-4 flex-1">
+                {/* Navegação */}
+                <nav className="flex-1 overflow-y-auto p-4">
                     <ul className="flex flex-col gap-2">
                         <NavLinks auth={auth} onClick={closeSidebar} />
                     </ul>
                 </nav>
-
-                <div className="mt-auto">
-                    <Footer />
-                </div>
             </aside>
 
+            {/* Overlay no mobile */}
             {open && (
-                <div className="fixed inset-0 bg-black opacity-50 z-30 md:hidden" onClick={closeSidebar} />
+                <div
+                    className="fixed inset-0 bg-black/50 backdrop-blur-sm z-30 md:hidden"
+                    onClick={closeSidebar}
+                />
             )}
         </>
     );
 };
 
 export default Sidebar;
-
-const NavLinks = ({
-    auth,
-    onClick,
-}: {
-    auth: ReturnType<typeof useAuth>;
-    onClick?: () => void;
-}) => {
-    const location = useLocation();
-
-    const [submenuGestaoOpen, setSubmenuGestaoOpen] = useState(() =>
-        ['/members', '/settings'].includes(location.pathname)
-    );
-
-    const [submenuTransacoesOpen, setSubmenuTransacoesOpen] = useState(() =>
-        ['/incomes', '/expenses'].includes(location.pathname)
-    );
-
-    const { t } = useTranslation();
-
-    const isActive = (path: string) => location.pathname === path;
-
-    return (
-        <>
-            <li>
-                <Link
-                    to="/dashboard"
-                    onClick={onClick}
-                    className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/dashboard') ? 'text-blue-400' : 'hover:text-blue-400'
-                        }`}
-                >
-                    <ChartColumn size={18} /> {t('menu_dashboard')}
-                </Link>
-            </li>
-
-            <li>
-                <button
-                    onClick={() => setSubmenuTransacoesOpen(!submenuTransacoesOpen)}
-                    className="flex items-center justify-between w-full hover:text-blue-400 transition-colors duration-200"
-                >
-                    <span className="flex items-center gap-2">
-                        <ArrowLeftRight size={18} /> {t('menu_transactions')}
-                    </span>
-                    {submenuTransacoesOpen ? (
-                        <ChevronDown size={16} />
-                    ) : (
-                        <ChevronRight size={16} />
-                    )}
-                </button>
-                {submenuTransacoesOpen && (
-                    <ul className="ml-6 mt-2 flex flex-col gap-2 text-sm text-gray-300">
-                        <li>
-                            <Link
-                                to="/incomes"
-                                onClick={onClick}
-                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/incomes') ? 'text-blue-400' : 'hover:text-blue-400'
-                                    }`}
-                            >
-                                <TrendingUp size={16} /> {t('menu_incomes')}
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/expenses"
-                                onClick={onClick}
-                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/expenses') ? 'text-blue-400' : 'hover:text-blue-400'
-                                    }`}
-                            >
-                                <TrendingDown size={16} /> {t('menu_expenses')}
-                            </Link>
-                        </li>
-                    </ul>
-                )}
-            </li>
-
-            {/* <li>
-                <button
-                    onClick={() => setSubmenuInvestimentosOpen(!submenuInvestimentosOpen)}
-                    className="flex items-center justify-between w-full hover:text-blue-400 transition-colors duration-200"
-                >
-                    <span className="flex items-center gap-2">
-                        <ChartCandlestick size={18} /> {t('menu_investments')}
-                    </span>
-                    {submenuInvestimentosOpen ? (
-                        <ChevronDown size={16} />
-                    ) : (
-                        <ChevronRight size={16} />
-                    )}
-                </button>
-                {submenuInvestimentosOpen && (
-                    <ul className="ml-6 mt-2 flex flex-col gap-2 text-sm text-gray-300">
-                        <li>
-                            <Link
-                                to="/investments"
-                                onClick={onClick}
-                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/investments') ? 'text-blue-400' : 'hover:text-blue-400'
-                                    }`}
-                            >
-                                <ChartColumn size={16} /> {t('menu_all_investments')}
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/stocks"
-                                onClick={onClick}
-                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/stocks') ? 'text-blue-400' : 'hover:text-blue-400'
-                                    }`}
-                            >
-                                <TrendingUp size={16} /> {t('menu_stocks')}
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/dividends"
-                                onClick={onClick}
-                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/dividends') ? 'text-blue-400' : 'hover:text-blue-400'
-                                    }`}
-                            >
-                                <TrendingDown size={16} /> {t('menu_dividends')}
-                            </Link>
-                        </li>
-                    </ul>
-                )}
-            </li> */}
-
-            <li>
-                <button
-                    onClick={() => setSubmenuGestaoOpen(!submenuGestaoOpen)}
-                    className="flex items-center justify-between w-full hover:text-blue-400 transition-colors duration-200"
-                >
-                    <span className="flex items-center gap-2">
-                        <Users size={18} /> {t('menu_management')}
-                    </span>
-                    {submenuGestaoOpen ? (
-                        <ChevronDown size={16} />
-                    ) : (
-                        <ChevronRight size={16} />
-                    )}
-                </button>
-                {submenuGestaoOpen && (
-                    <ul className="ml-6 mt-2 flex flex-col gap-2 text-sm text-gray-300">
-                        <li>
-                            <Link
-                                to="/members"
-                                onClick={onClick}
-                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/members') ? 'text-blue-400' : 'hover:text-blue-400'
-                                    }`}
-                            >
-                                <Users size={16} /> {t('menu_members')}
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/settings"
-                                onClick={onClick}
-                                className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/settings') ? 'text-blue-400' : 'hover:text-blue-400'
-                                    }`}
-                            >
-                                <Settings size={16} /> {t('menu_settings')}
-                            </Link>
-                        </li>
-                    </ul>
-                )}
-            </li>
-
-            {!auth.isAuthenticated && (
-                <li>
-                    <Link
-                        to="/register"
-                        onClick={onClick}
-                        className={`flex items-center gap-2 transition-colors duration-200 ${isActive('/register') ? 'text-blue-400' : 'hover:text-blue-400'
-                            }`}
-                    >
-                        {t('menu_register')}
-                    </Link>
-                </li>
-            )}
-        </>
-    );
-};

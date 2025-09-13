@@ -7,6 +7,8 @@ import Incomes from '../pages/private/Incomes';
 import Expenses from '../pages/private/Expenses';
 import Members from '../pages/private/Members';
 import Settings from '../pages/private/Settings';
+import Onboard from '../pages/public/Onboard';
+
 
 export interface AppRoute {
     path: string;
@@ -17,7 +19,7 @@ export interface AppRoute {
 
 export const appRoutes: AppRoute[] = [
     {
-        path: '/dashboard',
+        path: '/',
         name: 'Dashboard',
         element: (
             <ProtectedRoute>
@@ -53,12 +55,17 @@ export const appRoutes: AppRoute[] = [
         private: false,
     },
     {
+        path: '/onboard',
+        name: 'Onboard',
+        element: (
+            <Onboard />
+        ),
+    },
+    {
         path: '/register',
         name: 'Register',
         element: (
-            <MainLayout>
-                <RegisterUser />
-            </MainLayout>
+            <RegisterUser />
         ),
     },
     {

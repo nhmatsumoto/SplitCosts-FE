@@ -1,16 +1,16 @@
 import type { ReactNode } from 'react';
 import Sidebar from './Sidebar';
-import { ToastContainer } from 'react-toastify';
+import Footer from './Footer';
 
 export const MainLayout = ({ children }: { children: ReactNode }) => {
     return (
-        <div className="h-screen flex overflow-hidden">
+        <div className="h-screen flex bg-gray-50">
             <Sidebar />
-            <div className="flex flex-col flex-1 overflow-auto">
-                <main className="flex-grow p-4">
+            <div className="flex flex-col flex-1 overflow-hidden">
+                <main className="flex-1 p-6 md:p-8 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 transition-all">
                     {children}
                 </main>
-                <ToastContainer position="top-right" autoClose={5000} />
+                <Footer />
             </div>
         </div>
     );
